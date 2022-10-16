@@ -1,5 +1,7 @@
 call plug#begin()
 
+
+
 " FileManager
 Plug 'https://github.com/kyazdani42/nvim-web-devicons'
 Plug 'https://github.com/kyazdani42/nvim-tree.lua'
@@ -14,11 +16,17 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'hrsh7th/nvim-cmp' 
 Plug 'hrsh7th/cmp-nvim-lsp' 
-Plug 'saadparwaiz1/cmp_luasnip' 
-Plug 'L3MON4D3/LuaSnip'
 
 " Show errors
 Plug 'folke/trouble.nvim'
+
+" Snipets
+Plug 'L3MON4D3/LuaSnip', {'tag': 'v<CurrentMajor>.*'}
+Plug 'https://github.com/rafamadriz/friendly-snippets'
+Plug 'https://github.com/saadparwaiz1/cmp_luasnip'
+
+" File Paths
+Plug 'https://github.com/hrsh7th/cmp-path'
 
 " Themes
 Plug 'https://github.com/Mofiqul/dracula.nvim'  
@@ -74,6 +82,9 @@ lua << EOF
 
 vim.g.loaded = 1 
 vim.g.loaded_netrwPlugin = 1
+
+
+require("plugins.luasnip")
 require("plugins.lualine")
 require("plugins.nvim-tree")
 require("plugins.lspconfigCmpMason")
@@ -90,3 +101,7 @@ vim.keymap.set('n', '<leader>d', util.toggleDiagnostics)
 
 
 EOF
+
+
+
+
