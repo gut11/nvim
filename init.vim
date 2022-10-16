@@ -5,7 +5,7 @@ Plug 'https://github.com/kyazdani42/nvim-web-devicons'
 Plug 'https://github.com/kyazdani42/nvim-tree.lua'
 
 " Bar
-Plug 'https://github.com/vim-airline/vim-airline'
+Plug 'https://github.com/nvim-lualine/lualine.nvim'
 
 " LSP AutoComplete SyntaxHighlighting 
 Plug  'williamboman/mason.nvim'
@@ -16,6 +16,9 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp' 
 Plug 'saadparwaiz1/cmp_luasnip' 
 Plug 'L3MON4D3/LuaSnip'
+
+" Show errors
+Plug 'folke/trouble.nvim'
 
 " Themes
 Plug 'https://github.com/Mofiqul/dracula.nvim'  
@@ -33,7 +36,7 @@ set tabstop=4
 set shiftwidth=4
 set mouse=a
 
-colorscheme tokyonight 
+colorscheme tokyonight-storm 
 map Y y$
 map <silent>f :lua vim.lsp.buf.formatting_sync() <CR>
 nnoremap <silent>e :NvimTreeToggle <CR>
@@ -59,7 +62,8 @@ nnoremap <silent><M-7> <Cmd>BufferLineGoToBuffer 7<CR>
 nnoremap <silent><M-8> <Cmd>BufferLineGoToBuffer 8<CR>
 nnoremap <silent><M-9> <Cmd>BufferLineGoToBuffer 9<CR>
 nnoremap <silent><M-$> <Cmd>BufferLineGoToBuffer -1<CR>
-nnoremap <silent><M-c> <Cmd>Bdelete<CR>
+nnoremap <silent><M-c> <Cmd>Bdelete!<CR>
+nnoremap <silent><M-d> <Cmd>TroubleToggle<CR>
 
 
 
@@ -70,9 +74,19 @@ lua << EOF
 
 vim.g.loaded = 1 
 vim.g.loaded_netrwPlugin = 1
+require("plugins.lualine")
 require("plugins.nvim-tree")
 require("plugins.lspconfigCmpMason")
 require("plugins.nvim-treesitter")
+require("plugins.trouble")
 require('plugins.bufferline')
+
+
+
+util = require('util')
+vim.keymap.set('n', '<leader>d', util.toggleDiagnostics)
+
+
+
 
 EOF
