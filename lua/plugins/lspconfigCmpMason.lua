@@ -1,4 +1,4 @@
-local lsps = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', "bashls", "sumneko_lua", "cssls", "html" }
+local lsps = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', "quick_lint_js", "bashls", "sumneko_lua", "cssls", "html", "jdtls", "jsonls", }
 require("mason").setup()
 require("mason-lspconfig").setup({
 	ensure_installed = lsps

@@ -46,7 +46,10 @@ set mouse=a
 
 colorscheme tokyonight-storm 
 map Y y$
-map <silent>f :lua vim.lsp.buf.formatting_sync() <CR>
+map <silent><leader>f :lua vim.lsp.buf.formatting_sync() <CR>
+map <silent><leader>s :w <CR>
+map <silent><leader>Q :q! <CR>
+map <silent><leader>c :q <CR>
 nnoremap <silent>e :NvimTreeToggle <CR>
 nnoremap <C-H> <C-W>h
 nnoremap <C-J> <C-W>j
@@ -56,6 +59,7 @@ nnoremap <C-left> <C-W>h
 nnoremap <C-down> <C-W>j
 nnoremap <C-up> <C-W>k
 nnoremap <C-right> <C-W>l
+map <Leader><Space> :noh<CR>
 nnoremap <silent><M-l> :BufferLineCycleNext<CR>
 nnoremap <silent><M-h> :BufferLineCyclePrev<CR>
 nnoremap <silent><M-right> :BufferLineCycleNext<CR>
@@ -72,7 +76,6 @@ nnoremap <silent><M-9> <Cmd>BufferLineGoToBuffer 9<CR>
 nnoremap <silent><M-$> <Cmd>BufferLineGoToBuffer -1<CR>
 nnoremap <silent><M-c> <Cmd>Bdelete!<CR>
 nnoremap <silent><M-d> <Cmd>TroubleToggle<CR>
-
 
 
 " Lua
