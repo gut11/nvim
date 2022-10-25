@@ -13,8 +13,8 @@ Plug 'https://github.com/nvim-lualine/lualine.nvim'
 Plug  'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'  
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'hrsh7th/nvim-cmp' 
+Plug 'hrsh7th/nvim-cmp'
+Plug 'https://github.com/nvim-treesitter/nvim-treesitter'
 Plug 'hrsh7th/cmp-nvim-lsp' 
 
 " Show errors
@@ -31,10 +31,14 @@ Plug 'https://github.com/hrsh7th/cmp-path'
 " Themes
 Plug 'https://github.com/Mofiqul/dracula.nvim'  
 Plug 'https://github.com/folke/tokyonight.nvim'
+Plug 'https://github.com/Mofiqul/vscode.nvim'
 
 " Tabs
 Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
 Plug 'https://github.com/moll/vim-bbye'
+
+" Sudo inside nvim
+Plug 'https://github.com/lambdalisue/suda.vim'
 
 call plug#end()
 
@@ -48,8 +52,9 @@ colorscheme tokyonight-storm
 map Y y$
 map <silent><leader>f :lua vim.lsp.buf.formatting_sync() <CR>
 map <silent><leader>s :w <CR>
+map <silent><leader>S :w!! <CR>
 map <silent><leader>Q :q! <CR>
-map <silent><leader>c :q <CR>
+map <silent><leader>q :q <CR>
 nnoremap <silent>e :NvimTreeToggle <CR>
 nnoremap <C-H> <C-W>h
 nnoremap <C-J> <C-W>j
@@ -77,6 +82,16 @@ nnoremap <silent><M-$> <Cmd>BufferLineGoToBuffer -1<CR>
 nnoremap <silent><M-c> <Cmd>Bdelete!<CR>
 nnoremap <silent><M-d> <Cmd>TroubleToggle<CR>
 
+
+" Save as sudo
+ca w!! SudaWrite
+
+
+au VimEnter,VimResume * set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+  \,sm:block-blinkwait175-blinkoff150-blinkon175
+
+au VimLeave,VimSuspend * set guicursor=a:hor100-blinkwait125-blinkoff120-blinkon125
 
 " Lua
 

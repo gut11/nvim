@@ -2,16 +2,13 @@ local util = {}
 DiagnosticState = true;
 
 function util.toggleDiagnostics()
-	if diagnosticState then
+	if DiagnosticState then
 		vim.diagnostic.hide()
 	else
 		vim.diagnostic.show()
 	end
-	diagnosticState = not diagnosticState
-	print(diagnosticState)
+	DiagnosticState = not DiagnosticState
+	print(DiagnosticState)
 end
-
-
-
 
 return util
