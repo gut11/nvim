@@ -26,49 +26,30 @@ require('bufferline').setup {
                   -- buffers (tabs only) | table(int) | the numbers of the buffers in the tab
                   -- tabnr (tabs only)   | int        | the "handle" of the tab, can be converted to its ordinal number using: `vim.api.nvim_tabpage_get_number(buf.tabnr)`
             --end,
-            max_name_length = 30,
-            max_prefix_length = 30, -- prefix used when a buffer is de-duplicated
+            max_name_length = 21,
+            max_prefix_length = 20, -- prefix used when a buffer is de-duplicated
             truncate_names = true, -- whether or not tab names should be truncated
-            tab_size = 21,
+            tab_size = 15,
             diagnostics = "nvim_lsp", --| false | "coc",
             diagnostics_update_in_insert = false,
             -- The diagnostics indicator can be set to nil to keep the buffer name highlight but delete the highlighting
-           diagnostics_indicator = function(count, level, diagnostics_dict, context)
+           diagnostics_indicator = function(count)
             return "("..count..")"
             end,
-            -- NOTE: this will be called a lot so don't do any heavy processing here
-            --custom_filter = function(buf_number, buf_numbers)
-                -- filter out filetypes you don't want to see
-            --    if vim.bo[buf_number].filetype ~= "<i-dont-want-to-see-this>" then
-            --        return true
-            --    end
-                -- filter out by buffer name
-            --    if vim.fn.bufname(buf_number) ~= "<buffer-name-I-dont-want>" then
-            --        return true
-            --    end
-                -- filter out based on arbitrary rules
-                -- e.g. filter out vim wiki buffer from tabline in your work repo
-             --   if vim.fn.getcwd() == "<work-repo>" and vim.bo[buf_number].filetype ~= "wiki" then
-            --        return true
-            --    end
-                -- filter out by it's index number in list (don't show first buffer)
-            --    if buf_numbers[1] ~= buf_number then
-            --        return true
-            --    end
-            --end,
             offsets = {
                 {
                     filetype = "NvimTree",
                     text = "File Explorer",-- | function ,
                     text_align = "center",-- | "left" | "right"
-                    separator = true
+                    separator = true,
+					padding = 1,
                 }
             },
             color_icons = true,-- | false, -- whether or not to add the filetype icon highlights
             show_buffer_icons = true,-- | false, -- disable filetype icons for buffers
-            show_buffer_close_icons = true,-- | false,
+            show_buffer_close_icons = false,-- | false,
             show_buffer_default_icon = true, -- | false, -- whether or not an unrecognised filetype should show a default icon
-            show_close_icon = true,-- | false,
+            show_close_icon = false,-- | false,
             show_tab_indicators = true,-- | false,
             show_duplicate_prefix = true,-- | false, -- whether to show duplicate buffer prefix
             persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
@@ -76,7 +57,7 @@ require('bufferline').setup {
             -- [focused and unfocused]. eg: { '|', '|' }
             separator_style = "thin",-- | "slant" |"thick" | "thin" | { 'any', 'any' },
             enforce_regular_tabs = false,-- | true,
-            always_show_bufferline = true,-- | false,
+            always_show_bufferline = false,-- | false,
             hover = {
                 enabled = false,
                 delay = 200,

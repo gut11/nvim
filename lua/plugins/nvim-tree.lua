@@ -186,7 +186,7 @@ nvimtree.setup { -- BEGIN_DEFAULT_OPTS
 	},
 	git = {
 		enable = true,
-		ignore = true,
+		ignore = false,
 		show_on_dirs = true,
 		timeout = 400,
 	},
@@ -249,3 +249,5 @@ nvimtree.setup { -- BEGIN_DEFAULT_OPTS
 		},
 	},
 } -- END_DEFAULT_OPTS
+
+--nvim-tree.sync_root_with_cwd
