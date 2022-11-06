@@ -61,7 +61,7 @@ colorscheme tokyonight-storm
 map Y y$
 map <silent><leader>f <Cmd>lua vim.lsp.buf.format()<CR>
 map <silent><leader>s <Cmd>w<CR>
-map <silent><leader>S <Cmd>w!!<CR>
+map <leader>S <Cmd>w!!<CR>
 map <silent><leader>Q <Cmd>q!<CR>
 map <silent><leader>q <Cmd>q<CR>
 nnoremap <silent>e <Cmd>NvimTreeToggle<CR>
