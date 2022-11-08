@@ -17,10 +17,11 @@ lsps.list = {
 
 
 
-
 function lsps.configs(lspConfig, lsp, capabilities, on_attach)
 	if lsp == "sumneko_lua" then
-		lspConfig.sumneko_lua.setup({
+		lspConfig.sumneko_lua.setup {
+			on_attach = on_attach,
+			capabilities = capabilities,
 			settings = {
 				Lua = {
 					diagnostics = {
@@ -28,9 +29,9 @@ function lsps.configs(lspConfig, lsp, capabilities, on_attach)
 					}
 				}
 			}
-		})
+		}
 	elseif lsp == "emmet_ls" then
-		lspConfig.emmet_ls.setup({
+		lspConfig.emmet_ls.setup {
 			on_attach = on_attach,
 			capabilities = capabilities,
 			filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less' },
@@ -42,11 +43,13 @@ function lsps.configs(lspConfig, lsp, capabilities, on_attach)
 					},
 				},
 			}
-		})
+		}
+	elseif lsp == "jdtls" then
+		--being handled by nvim-jdtls	
 	else
 		return false
 	end
 	return true
 end
 
-return lsps 
+return lsps

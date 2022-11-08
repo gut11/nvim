@@ -11,6 +11,7 @@ Plug 'https://github.com/nvim-lualine/lualine.nvim'
 Plug  'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'  
+Plug 'mfussenegger/nvim-jdtls'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'https://github.com/nvim-treesitter/nvim-treesitter'
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -137,7 +138,6 @@ vim.keymap.set('n', '<leader>d', util.toggleDiagnostics)
 
 
 EOF
-
 
 
 
