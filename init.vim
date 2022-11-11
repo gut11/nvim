@@ -7,14 +7,16 @@ Plug 'https://github.com/kyazdani42/nvim-tree.lua'
 " Bar
 Plug 'https://github.com/nvim-lualine/lualine.nvim'
 
-" LSP AutoComplete SyntaxHighlighting 
+" LSP AutoComplete 
 Plug  'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'  
 Plug 'mfussenegger/nvim-jdtls'
 Plug 'hrsh7th/nvim-cmp'
-Plug 'https://github.com/nvim-treesitter/nvim-treesitter'
 Plug 'hrsh7th/cmp-nvim-lsp'
+
+" Syntax Highlighting
+Plug 'https://github.com/nvim-treesitter/nvim-treesitter'
 
 " Diagnostics
 Plug 'nvim-lua/plenary.nvim'
@@ -36,9 +38,6 @@ Plug 'https://github.com/Mofiqul/dracula.nvim'
 Plug 'https://github.com/folke/tokyonight.nvim'
 Plug 'https://github.com/Mofiqul/vscode.nvim'
 
-" Transparency
-Plug 'https://github.com/xiyaowong/nvim-transparent'
-
 " Tabs
 Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
 Plug 'https://github.com/moll/vim-bbye'
@@ -52,12 +51,21 @@ Plug 'https://github.com/lambdalisue/suda.vim'
 call plug#end()
 
 " Neovim Configs
-set number
 set tabstop=4
 set shiftwidth=4
 set mouse=a
 
-colorscheme tokyonight-storm
+" Turn hybrid line numbers on
+set number relativenumber
+set nu rnu
+set cursorline
+" Change line numbers color
+au colorscheme * hi LineNr guifg=#707187
+au colorscheme * hi CursorLine guibg=NONE
+au colorscheme * hi CursorLineNr guifg=bold
+
+colorscheme tokyonight 
+
 " My bindings
 map Y y$
 map <silent><leader>f <Cmd>lua vim.lsp.buf.format()<CR>
@@ -96,20 +104,23 @@ nnoremap <silent><M-8> <Cmd>BufferLineGoToBuffer 8<CR>
 nnoremap <silent><M-9> <Cmd>BufferLineGoToBuffer 9<CR>
 nnoremap <silent><M-$> <Cmd>BufferLineGoToBuffer -1<CR>
 nnoremap <silent><M-c> <Cmd>Bdelete!<CR>
-"Transparency
-nnoremap <silent><leader>t <Cmd>:TransparentToggle<CR>
 " Trouble
 nnoremap <silent><M-d> <Cmd>TroubleToggle<CR>
 " Save as sudo
 ca w!! SudaWrite
 
-
+" Set cursor to underline when leaving nvim
 au VimEnter,VimResume * set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
   \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
   \,sm:block-blinkwait175-blinkoff150-blinkon175
 
 au VimLeave,VimSuspend * set guicursor=a:hor100-blinkwait125-blinkoff120-blinkon125
 
+" Line numbers with diagnostic colors
+sign define DiagnosticSignError text=E texthl=DiagnosticSignError linehl= numhl=DiagnosticSignError
+sign define DiagnosticSignWarn text=W texthl=DiagnosticSignWarn linehl= numhl=DiagnosticSignWarn
+sign define DiagnosticSignInfo text=I texthl=DiagnosticSignInfo linehl= numhl=DiagnosticSignInfo
+sign define DiagnosticSignHint text=H texthl=DiagnosticSignHint linehl= numhl=DiagnosticSignHint
 
 " Lua
 lua << EOF
@@ -129,12 +140,15 @@ require("plugins.trouble")
 require('plugins.bufferline')
 require("plugins.null-ls")
 require("plugins.nvim-autopairs")
-require("plugins.nvim-transparent")
 
 
 
-util = require('util')
-vim.keymap.set('n', '<leader>d', util.toggleDiagnostics)
+
+
+funcs = require('myFunctions')
+vim.keymap.set('n', '<leader>d', funcs.toggleDiagnosticMode)
+vim.keymap.set('n', '<leader>D', funcs.toggleDiagnosticState)
+vim.keymap.set('n', '<leader>t', funcs.toggleTransparency)
 
 
 EOF
