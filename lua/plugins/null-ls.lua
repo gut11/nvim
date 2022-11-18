@@ -1,5 +1,5 @@
 local null_ls = require("null-ls")
-local formatters = {"prettier"}
+local formatters = {"prettier", "black"}
 local sources = {}
 
 

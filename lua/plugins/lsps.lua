@@ -3,6 +3,7 @@ lsps.list = {
 	"clangd",
 	"rust_analyzer",
 	"pyright",
+	"jedi_language_server",
 	"tsserver",
 	"quick_lint_js",
 	"bashls",
@@ -45,7 +46,19 @@ function lsps.configs(lspConfig, lsp, capabilities, on_attach)
 			}
 		}
 	elseif lsp == "jdtls" then
-		--being handled by nvim-jdtls	
+		--being handled by nvim-jdtls
+	elseif lsp == "pyright" then
+		lspConfig.pyright.setup {
+			settings = {
+				python = {
+					analysis = {
+						autoSearchPaths = true,
+						diagnosticMode = "workspace",
+						useLibraryCodeForTypes = true
+					}
+				}
+			}
+		}
 	else
 		return false
 	end
