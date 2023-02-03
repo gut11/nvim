@@ -26,7 +26,7 @@ Plug 'https://github.com/jose-elias-alvarez/null-ls.nvim'
 Plug 'folke/trouble.nvim'
 
 " Snipets
-Plug 'L3MON4D3/LuaSnip', {'tag': 'v<CurrentMajor>.*'}
+Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.*', 'do': 'make install_jsregexp'}
 Plug 'https://github.com/rafamadriz/friendly-snippets'
 Plug 'https://github.com/saadparwaiz1/cmp_luasnip'
 
