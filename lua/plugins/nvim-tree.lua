@@ -5,7 +5,7 @@ require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
 	hijack_netrw = true,
 	hijack_unnamed_buffer_when_opening = false,
 	ignore_buffer_on_setup = false,
-	open_on_setup = true,
+	open_on_setup = false,
 	open_on_setup_file = false,
 	sort_by = "name",
 	root_dirs = {},
@@ -79,17 +79,17 @@ require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
 				{ key = "m", action = "toggle_mark" },
 				{ key = "bmv", action = "bulk_move" },
 			}, -- END_DEFAULT_MAPPINGS
-			float = {
-				enable = false,
-				quit_on_focus_loss = true,
-				open_win_config = {
-					relative = "editor",
-					border = "rounded",
-					width = 30,
-					height = 30,
-					row = 1,
-					col = 1,
-				},
+		},
+		float = {
+			enable = false,
+			quit_on_focus_loss = true,
+			open_win_config = {
+				relative = "editor",
+				border = "rounded",
+				width = 30,
+				height = 30,
+				row = 1,
+				col = 1,
 			},
 		},
 	},

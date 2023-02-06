@@ -149,6 +149,7 @@ funcs = require('myFunctions')
 vim.keymap.set('n', '<leader>d', funcs.toggleDiagnosticMode)
 vim.keymap.set('n', '<leader>D', funcs.toggleDiagnosticState)
 vim.keymap.set('n', '<leader>t', funcs.toggleTransparency)
+vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = funcs.open_nvim_tree })
 
 
 EOF
