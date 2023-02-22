@@ -1,12 +1,9 @@
-local null_ls = require("null-ls")
-local formatters = {"prettier", "black"}
-local sources = {}
-
-
-for _, formatter in ipairs(formatters) do
-	table.insert(sources,null_ls.builtins.formatting[formatter])
-end
-
-
-
-null_ls.setup({sources = sources})
+require("null-ls").setup {
+    sources = {
+      require("null-ls").builtins.formatting.prettier.with {
+        args = {
+          "--tab-width 4",
+        },
+      },
+    },
+  }

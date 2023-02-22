@@ -42,6 +42,9 @@ Plug 'https://github.com/Mofiqul/vscode.nvim'
 Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
 Plug 'https://github.com/moll/vim-bbye'
 
+" Tmux
+Plug 'https://github.com/christoomey/vim-tmux-navigator'
+
 " Closers(){}[]
 Plug 'windwp/nvim-autopairs'
 
@@ -59,6 +62,10 @@ set mouse=a
 set number relativenumber
 set nu rnu
 set cursorline
+
+" Use xclip(or other tool depending on the system) for clipboard
+set clipboard+=unnamedplus
+
 " Change line numbers color
 au colorscheme * hi LineNr guifg=#707187
 au colorscheme * hi CursorLine guibg=NONE

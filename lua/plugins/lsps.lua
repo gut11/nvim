@@ -7,13 +7,14 @@ lsps.list = {
 	"tsserver",
 	"quick_lint_js",
 	"bashls",
-	"sumneko_lua",
+	"lua_ls",
 	"cssls",
 	"emmet_ls",
 	"cssmodules_ls",
 	"html",
 	"jdtls",
 	"jsonls",
+	"tailwindcss"
 }
 
 
@@ -45,7 +46,7 @@ function lsps.configs(lspConfig, lsp, capabilities, on_attach)
 				},
 			}
 		}
-	elseif lsp == "jdtls" then
+		elseif lsp == "jdtls" then
 		--being handled by nvim-jdtls
 	elseif lsp == "pyright" then
 		lspConfig.pyright.setup {

@@ -21,7 +21,7 @@ cmp.setup {
 			if cmp.visible() then
 				cmp.select_next_item()
 			elseif luasnip.expand_or_locally_jumpable() then
-				luasnip.expand_or_locally_jumpable()
+				luasnip.expand_or_jump()
 			elseif has_words_before() then
 				cmp.complete()
 			else
@@ -43,7 +43,7 @@ cmp.setup {
 		['<C-Space>'] = cmp.mapping.complete(),
 		['<CR>'] = cmp.mapping.confirm {
 			behavior = cmp.ConfirmBehavior.Replace,
-			select = true,
+			select = false,
 		}
 	}),
 	sources = {
