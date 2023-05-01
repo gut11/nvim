@@ -1,5 +1,6 @@
 local path = require('mason-core.path')
-local lsps = require("plugins.lsps").list
+local lsps_linters_formatters = require("plugins.lsps").list
+
 
 
 
@@ -87,6 +88,6 @@ require("mason").setup({
     },
 })
 require("mason-lspconfig").setup({
-	ensure_installed = lsps,
+	ensure_installed = lsps_linters_formatters,
 	automatic_installation = true,
 })

@@ -1,8 +1,12 @@
 call plug#begin()
 
-" FileManager
+" Lua Nvim library
+Plug 'nvim-lua/plenary.nvim'
+
+" File Navigation
 Plug 'https://github.com/kyazdani42/nvim-web-devicons'
 Plug 'https://github.com/kyazdani42/nvim-tree.lua'
+Plug 'https://github.com/nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
 
 " Bar
 Plug 'https://github.com/nvim-lualine/lualine.nvim'
@@ -11,19 +15,15 @@ Plug 'https://github.com/nvim-lualine/lualine.nvim'
 Plug  'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'  
-Plug 'mfussenegger/nvim-jdtls'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'mfussenegger/nvim-jdtls'
 
 " Syntax Highlighting
 Plug 'https://github.com/nvim-treesitter/nvim-treesitter'
 
-" Diagnostics
-Plug 'nvim-lua/plenary.nvim'
+" Formating
 Plug 'https://github.com/jose-elias-alvarez/null-ls.nvim'
-
-" Show errors
-Plug 'folke/trouble.nvim'
 
 " Snipets
 Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.*', 'do': 'make install_jsregexp'}
@@ -33,14 +33,10 @@ Plug 'https://github.com/saadparwaiz1/cmp_luasnip'
 " File Paths
 Plug 'https://github.com/hrsh7th/cmp-path'
 
-" Themes
+" Theme
 Plug 'https://github.com/Mofiqul/dracula.nvim'  
 Plug 'https://github.com/folke/tokyonight.nvim'
 Plug 'https://github.com/Mofiqul/vscode.nvim'
-
-" Tabs
-Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
-Plug 'https://github.com/moll/vim-bbye'
 
 " Tmux
 Plug 'https://github.com/christoomey/vim-tmux-navigator'
@@ -75,12 +71,14 @@ colorscheme tokyonight
 
 " My bindings
 map Y y$
+" Format
 map <silent><leader>f <Cmd>lua vim.lsp.buf.format()<CR>
+" Save
 map <silent><leader>s <Cmd>w<CR>
-map <leader>S <Cmd>w!!<CR>
+map <leader>S :w!!<CR>
+" Quit
 map <silent><leader>Q <Cmd>q!<CR>
 map <silent><leader>q <Cmd>q<CR>
-nnoremap <silent>e <Cmd>NvimTreeToggle<CR>
 nnoremap <C-H> <C-W>h
 nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
@@ -89,32 +87,33 @@ nnoremap <C-left> <C-W>h
 nnoremap <C-down> <C-W>j
 nnoremap <C-up> <C-W>k
 nnoremap <C-right> <C-W>l
+" Better ctrl-d/u
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+"Open nvim tree
+nnoremap <silent>e <Cmd>NvimTreeToggle<CR>
 " Clear Search Highlight
 map <Leader><Space> <Cmd>noh<CR>
-" Buffers/tabs
-nnoremap <silent><M-l> <Cmd>BufferLineCycleNext<CR>
-nnoremap <silent><M-h> <Cmd>BufferLineCyclePrev<CR>
-nnoremap <silent><M-right> <Cmd>BufferLineCycleNext<CR>
-nnoremap <silent><M-left> <Cmd>BufferLineCyclePrev<CR>
-nnoremap <silent><M-S-l> <Cmd>BufferLineMoveNext<CR>
-nnoremap <silent><M-S-h> <Cmd>BufferLineMovePrev<CR>
-nnoremap <silent><M-S-right> <Cmd>BufferLineMoveNext<CR>
-nnoremap <silent><M-S-left> <Cmd>BufferLineMovePrev<CR>
-nnoremap <silent><M-1> <Cmd>BufferLineGoToBuffer 1<CR>
-nnoremap <silent><M-2> <Cmd>BufferLineGoToBuffer 2<CR>
-nnoremap <silent><M-3> <Cmd>BufferLineGoToBuffer 3<CR>
-nnoremap <silent><M-4> <Cmd>BufferLineGoToBuffer 4<CR>
-nnoremap <silent><M-5> <Cmd>BufferLineGoToBuffer 5<CR>
-nnoremap <silent><M-6> <Cmd>BufferLineGoToBuffer 6<CR>
-nnoremap <silent><M-7> <Cmd>BufferLineGoToBuffer 7<CR>
-nnoremap <silent><M-8> <Cmd>BufferLineGoToBuffer 8<CR>
-nnoremap <silent><M-9> <Cmd>BufferLineGoToBuffer 9<CR>
-nnoremap <silent><M-$> <Cmd>BufferLineGoToBuffer -1<CR>
-nnoremap <silent><M-c> <Cmd>Bdelete!<CR>
-" Trouble
-nnoremap <silent><M-d> <Cmd>TroubleToggle<CR>
+" Telescope
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr> " Requires Ripgrep
+nnoremap <leader>gb <cmd>lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>
+nnoremap <leader>fs <cmd>Telescope current_buffer_fuzzy_find<cr> " Grep the current buffer (fs = find string)
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fd <cmd>Telescope diagnostics<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+" Buffers
+nnoremap <silent><M-l> <Cmd>bprevious<CR>
+nnoremap <silent><M-h> <Cmd>bnext<CR>
+nnoremap <silent><M-right> <Cmd>bprevious<CR>
+nnoremap <silent><M-left> <Cmd>bnext<CR>
+nnoremap <silent><M-c> <Cmd>bd<CR>
+map <C-C> <ESC> 
 " Save as sudo
 ca w!! SudaWrite
+" Fix delay on ESC
+set timeoutlen=1000
+set ttimeoutlen=50
 
 " Set cursor to underline when leaving nvim
 au VimEnter,VimResume * set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
@@ -143,10 +142,9 @@ require("plugins.mason")
 require("plugins.lspconfig")
 require("plugins.nvim-cmp")
 require("plugins.nvim-treesitter")
-require("plugins.trouble")
-require('plugins.bufferline')
 require("plugins.null-ls")
 require("plugins.nvim-autopairs")
+require("plugins.telescope")
 
 
 

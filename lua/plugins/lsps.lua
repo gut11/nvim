@@ -1,9 +1,20 @@
-local lsps = {}
+local lsps = {};
+
+local function concatenate_tables(table1, table2)
+	local result = {}
+	for _, v in ipairs(table1) do
+		table.insert(result, v)
+	end
+	for _, v in ipairs(table2) do
+		table.insert(result, v)
+	end
+	return result
+end
+
 lsps.list = {
 	"clangd",
 	"rust_analyzer",
 	"pyright",
-	"jedi_language_server",
 	"tsserver",
 	"quick_lint_js",
 	"bashls",
@@ -17,11 +28,18 @@ lsps.list = {
 	"tailwindcss"
 }
 
+lsps.linters_formatters = {
+	"black",
+	"flake8",
+}
+
+lsps.all = concatenate_tables(lsps.list, lsps.linters_formatters)
+
 
 
 function lsps.configs(lspConfig, lsp, capabilities, on_attach)
-	if lsp == "sumneko_lua" then
-		lspConfig.sumneko_lua.setup {
+	if lsp == "lua_ls" then
+		lspConfig.lua_ls.setup {
 			on_attach = on_attach,
 			capabilities = capabilities,
 			settings = {
@@ -46,7 +64,7 @@ function lsps.configs(lspConfig, lsp, capabilities, on_attach)
 				},
 			}
 		}
-		elseif lsp == "jdtls" then
+	elseif lsp == "jdtls" then
 		--being handled by nvim-jdtls
 	elseif lsp == "pyright" then
 		lspConfig.pyright.setup {
