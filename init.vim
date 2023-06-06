@@ -47,6 +47,9 @@ Plug 'windwp/nvim-autopairs'
 " Sudo inside nvim
 Plug 'https://github.com/lambdalisue/suda.vim'
 
+" Nvim api
+Plug 'folke/neodev.nvim'
+
 call plug#end()
 
 " Neovim Configs
@@ -103,8 +106,8 @@ nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fd <cmd>Telescope diagnostics<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 " Buffers
-nnoremap <silent><M-l> <Cmd>bprevious<CR>
-nnoremap <silent><M-h> <Cmd>bnext<CR>
+nnoremap <silent><M-l> <Cmd>lua funcs.mruBufferNext()<CR>
+nnoremap <silent><M-h> <Cmd>lua funcs.mruBufferPrev()<CR>
 nnoremap <silent><M-right> <Cmd>bprevious<CR>
 nnoremap <silent><M-left> <Cmd>bnext<CR>
 nnoremap <silent><M-c> <Cmd>bd<CR>
@@ -139,6 +142,7 @@ require("plugins.luasnip")
 require("plugins.lualine")
 require("plugins.nvim-tree")
 require("plugins.mason")
+require("plugins.neodev")
 require("plugins.lspconfig")
 require("plugins.nvim-cmp")
 require("plugins.nvim-treesitter")
