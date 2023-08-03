@@ -25,12 +25,17 @@ lsps.list = {
 	"html",
 	"jdtls",
 	"jsonls",
-	"tailwindcss"
+	"intelephense",
+	"tailwindcss",
+	"marksman"
 }
 
 lsps.linters_formatters = {
 	"black",
 	"flake8",
+	"prettier",
+	"php-cs-fixer",
+	"mdformat"
 }
 
 lsps.all = concatenate_tables(lsps.list, lsps.linters_formatters)

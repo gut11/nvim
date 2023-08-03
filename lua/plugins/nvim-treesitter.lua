@@ -25,7 +25,4 @@ require'nvim-treesitter.configs'.setup {
 
 }
 
-
--- For Fedora 36 was necessary to install some dependencies:
--- sudo dnf install g++
--- sudo dnf install libstdc++-static
+vim.treesitter.language.register('markdown', 'vimwiki')
