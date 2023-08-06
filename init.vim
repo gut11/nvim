@@ -36,6 +36,7 @@ Plug 'https://github.com/hrsh7th/cmp-path'
 " Theme
 Plug 'https://github.com/Mofiqul/dracula.nvim'  
 Plug 'https://github.com/folke/tokyonight.nvim'
+Plug 'https://github.com/catppuccin/nvim'
 Plug 'https://github.com/Mofiqul/vscode.nvim'
 
 " Tmux
@@ -76,7 +77,7 @@ au colorscheme * hi LineNr guifg=#707187
 au colorscheme * hi CursorLine guibg=NONE
 au colorscheme * hi CursorLineNr guifg=bold
 
-colorscheme tokyonight 
+colorscheme catppuccin-frappe
 
 " My bindings
 map Y y$
