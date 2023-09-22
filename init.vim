@@ -17,6 +17,7 @@ Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'  
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
+" Java LSP
 Plug 'mfussenegger/nvim-jdtls'
 
 " Syntax Highlighting
@@ -45,6 +46,9 @@ Plug 'https://github.com/christoomey/vim-tmux-navigator'
 " Closers(){}[]
 Plug 'windwp/nvim-autopairs'
 
+" Comments 
+Plug 'numToStr/Comment.nvim'
+
 " Sudo inside nvim
 Plug 'https://github.com/lambdalisue/suda.vim'
 
@@ -60,9 +64,19 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 call plug#end()
 
 " Neovim Configs
+
 set tabstop=4
 set shiftwidth=4
 set mouse=a
+
+" Long lines
+nnoremap D dg$
+nnoremap Y yg$
+" Dont wrap lines in the middle of words
+set linebreak
+" Allow to move by visual lines but perfom commands by physical lines
+noremap <expr> j v:count ? 'j' : 'gj'
+noremap <expr> k v:count ? 'k' : 'gk'
 
 " Turn hybrid line numbers on
 set number relativenumber
@@ -79,9 +93,7 @@ au colorscheme * hi CursorLineNr guifg=bold
 
 colorscheme catppuccin-frappe
 
-" My bindings
-map Y y$
-" Format
+" Formats
 map <silent><leader>f <Cmd>lua vim.lsp.buf.format()<CR>
 " Save
 map <silent><leader>s <Cmd>w<CR>
@@ -169,6 +181,7 @@ require("plugins.nvim-autopairs")
 require("plugins.telescope")
 require("plugins.obsidian")
 require('telescope').load_extension('vw')
+require("plugins.comment")
 
 
 

@@ -33,7 +33,6 @@ lsps.list = {
 lsps.linters_formatters = {
 	"black",
 	"flake8",
-	"prettier",
 	"php-cs-fixer",
 	"mdformat"
 }
@@ -67,6 +66,44 @@ function lsps.configs(lspConfig, lsp, capabilities, on_attach)
 						["bem.enabled"] = true,
 					},
 				},
+			}
+		}
+	elseif lsp == "tsserver" then
+		lspConfig.tsserver.setup {
+			on_attach = on_attach,
+			capabilities = capabilities,
+			settings = {
+				javascript = {
+					format = {
+						semicolons = "insert",
+					},
+					inlayHints = {
+						includeInlayEnumMemberValueHints = true,
+						includeInlayFunctionLikeReturnTypeHints = true,
+						includeInlayFunctionParameterTypeHints = true,
+						includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+						includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+						includeInlayPropertyDeclarationTypeHints = true,
+						includeInlayVariableTypeHints = true,
+					},
+				},
+				typescript = {
+					format = {
+						semicolons = "insert",
+					},
+					inlayHints = {
+						includeInlayEnumMemberValueHints = true,
+						includeInlayFunctionLikeReturnTypeHints = true,
+						includeInlayFunctionParameterTypeHints = true,
+						includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+						includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+						includeInlayPropertyDeclarationTypeHints = true,
+						includeInlayVariableTypeHints = true,
+					},
+				},
+			},
+			init_options = {
+				hostInfo = "neovim",
 			}
 		}
 	elseif lsp == "jdtls" then
