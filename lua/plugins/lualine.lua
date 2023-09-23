@@ -24,7 +24,7 @@ require('lualine').setup {
 	sections = {
 		lualine_a = { 'mode' },
 		lualine_b = { 'branch', 'diff', 'diagnostics' },
-		lualine_c = { 'filename' },
+		lualine_c = { "vim.fn.expand('%:h:t') .. '/' .. vim.fn.expand('%:t')" }, --[[ file name and directory file is inside ]]
 		lualine_x = { 'encoding',  'filetype','filesize',"fileformat", },
 		lualine_y = { 'progress', 'totalLines()'},
 		lualine_z = { "location" }
