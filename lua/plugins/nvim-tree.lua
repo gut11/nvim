@@ -82,22 +82,17 @@ require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
 	reload_on_bufenter = false,
 	respect_buf_cwd = true,
 	on_attach = on_attach,
-	remove_keymaps = false,
 	select_prompts = false,
 	view = {
 		centralize_selection = false,
 		cursorline = true,
 		debounce_delay = 15,
-		width = 30,
-		hide_root_folder = false,
+		width = 45,
 		side = "left",
 		preserve_window_proportions = false,
 		number = false,
 		relativenumber = false,
 		signcolumn = "yes",
-		mappings = {
-			custom_only = true,
-		},
 		float = {
 			enable = false,
 			quit_on_focus_loss = true,
@@ -121,7 +116,7 @@ require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
 		root_folder_label = ":~:s?$?/..?",
 		indent_width = 2,
 		indent_markers = {
-			enable = false,
+			enable = true,
 			inline_arrows = true,
 			icons = {
 				corner = "└",

@@ -34,7 +34,8 @@ lsps.linters_formatters = {
 	"black",
 	"flake8",
 	"php-cs-fixer",
-	"mdformat"
+	"mdformat",
+	"prettier"
 }
 
 lsps.all = concatenate_tables(lsps.list, lsps.linters_formatters)

@@ -7,6 +7,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'https://github.com/kyazdani42/nvim-web-devicons'
 Plug 'https://github.com/kyazdani42/nvim-tree.lua'
 Plug 'https://github.com/nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
+Plug 'ThePrimeagen/harpoon'
 
 " Bar
 Plug 'https://github.com/nvim-lualine/lualine.nvim'
@@ -21,13 +22,13 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'mfussenegger/nvim-jdtls'
 
 " Syntax Highlighting
-Plug 'https://github.com/nvim-treesitter/nvim-treesitter'
+Plug 'https://github.com/nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Formating
 Plug 'https://github.com/jose-elias-alvarez/null-ls.nvim'
 
 " Snipets
-Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.*', 'do': 'make install_jsregexp'}
+Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'}
 Plug 'https://github.com/rafamadriz/friendly-snippets'
 Plug 'https://github.com/saadparwaiz1/cmp_luasnip'
 
@@ -119,14 +120,26 @@ map <Leader><Space> <Cmd>noh<CR>
 " Telescope
 nnoremap <C-f> <cmd>Telescope find_files<cr>
 nnoremap <C-b> <cmd>Telescope buffers<cr>
+nnoremap <M-m> <cmd>:lua require("harpoon.ui").toggle_quick_menu()<CR>
 nnoremap <leader>gf <cmd>Telescope live_grep<cr> " Requires Ripgrep
 nnoremap <leader>gb <cmd>lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>
 nnoremap <leader>gc <cmd>Telescope current_buffer_fuzzy_find<cr> " Grep the current buffer (gc = grep current)
 nnoremap <leader>fd <cmd>Telescope diagnostics<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 " Buffers
-nnoremap <silent><M-l> <Cmd>lua funcs.mruBufferNext()<CR>
-nnoremap <silent><M-h> <Cmd>lua funcs.mruBufferPrev()<CR>
+nnoremap <silent><leader>m <cmd>:lua require('harpoon.mark').add_file()<CR>
+nnoremap <silent><M-l> <Cmd>:lua require("harpoon.ui").nav_next()<CR>
+nnoremap <silent><M-h> <Cmd>:lua require("harpoon.ui").nav_prev()<CR>
+nnoremap <silent><M-1> <Cmd>:lua require("harpoon.ui").nav_file(1)<CR>
+nnoremap <silent><M-2> <Cmd>:lua require("harpoon.ui").nav_file(2)<CR>
+nnoremap <silent><M-3> <Cmd>:lua require("harpoon.ui").nav_file(3)<CR>
+nnoremap <silent><M-4> <Cmd>:lua require("harpoon.ui").nav_file(4)<CR>
+nnoremap <silent><M-5> <Cmd>:lua require("harpoon.ui").nav_file(5)<CR>
+nnoremap <silent><M-6> <Cmd>:lua require("harpoon.ui").nav_file(6)<CR>
+nnoremap <silent><M-7> <Cmd>:lua require("harpoon.ui").nav_file(7)<CR>
+nnoremap <silent><M-8> <Cmd>:lua require("harpoon.ui").nav_file(8)<CR>
+nnoremap <silent><M-9> <Cmd>:lua require("harpoon.ui").nav_file(9)<CR>
+nnoremap <silent><M-0> <Cmd>:lua require("harpoon.ui").nav_file(10)<CR>
 nnoremap <silent><M-right> <Cmd>bprevious<CR>
 nnoremap <silent><M-left> <Cmd>bnext<CR>
 nnoremap <silent><M-c> <Cmd>bd<CR>
