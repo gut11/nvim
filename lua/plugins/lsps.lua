@@ -27,6 +27,7 @@ lsps.list = {
 	"jsonls",
 	"intelephense",
 	"tailwindcss",
+	"angularls",
 	"marksman"
 }
 
