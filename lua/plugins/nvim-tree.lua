@@ -6,6 +6,36 @@ local function on_attach(bufnr)
 	end
 
 
+	local function edit_or_open()
+		local node = api.tree.get_node_under_cursor()
+
+		if node.nodes ~= nil then
+			-- expand or collapse folder
+			api.node.open.edit()
+		else
+			-- open file
+			api.node.open.edit()
+			-- Close the tree if file was opened
+			api.tree.close()
+		end
+	end
+
+	-- open as vsplit on current node
+	local function vsplit_preview()
+		local node = api.tree.get_node_under_cursor()
+
+		if node.nodes ~= nil then
+			-- expand or collapse folder
+			api.node.open.edit()
+		else
+			-- open file as vsplit
+			api.node.open.vertical()
+		end
+
+		-- Finally refocus on tree if it was lost
+		api.tree.focus()
+	end
+
 	-- Default mappings not inserted as:
 	--  remove_keymaps = true
 	--  OR
@@ -15,6 +45,10 @@ local function on_attach(bufnr)
 	-- Mappings migrated from view.mappings.list
 	--
 	-- You will need to insert "your code goes here" for any mappings with a custom action_cb
+	vim.keymap.set("n", "l", edit_or_open, opts("Edit Or Open"))
+	vim.keymap.set("n", "L", vsplit_preview, opts("Vsplit Preview"))
+	vim.keymap.set("n", "h", api.node.navigate.parent_close, opts("Close"))
+	vim.keymap.set("n", "H", api.tree.collapse_all, opts("Collapse All"))
 	vim.keymap.set('n', '<CR>', api.node.open.edit, opts('Open'))
 	vim.keymap.set('n', 'o', api.node.open.edit, opts('Open'))
 	vim.keymap.set('n', '<2-LeftMouse>', api.node.open.edit, opts('Open'))
@@ -32,11 +66,6 @@ local function on_attach(bufnr)
 	vim.keymap.set('n', '<Tab>', api.node.open.preview, opts('Open Preview'))
 	vim.keymap.set('n', 'K', api.node.navigate.sibling.first, opts('First Sibling'))
 	vim.keymap.set('n', 'J', api.node.navigate.sibling.last, opts('Last Sibling'))
-	vim.keymap.set('n', 'C', api.tree.toggle_git_clean_filter, opts('Toggle Git Clean'))
-	vim.keymap.set('n', 'I', api.tree.toggle_gitignore_filter, opts('Toggle Git Ignore'))
-	vim.keymap.set('n', 'H', api.tree.toggle_hidden_filter, opts('Toggle Dotfiles'))
-	vim.keymap.set('n', 'B', api.tree.toggle_no_buffer_filter, opts('Toggle No Buffer'))
-	vim.keymap.set('n', 'U', api.tree.toggle_custom_filter, opts('Toggle Hidden'))
 	vim.keymap.set('n', 'R', api.tree.reload, opts('Refresh'))
 	vim.keymap.set('n', 'a', api.fs.create, opts('Create'))
 	vim.keymap.set('n', 'd', api.fs.remove, opts('Delete'))
@@ -87,7 +116,7 @@ require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
 		centralize_selection = false,
 		cursorline = true,
 		debounce_delay = 15,
-		width = 45,
+		adaptive_size = true,
 		side = "left",
 		preserve_window_proportions = false,
 		number = false,
@@ -211,7 +240,7 @@ require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
 	},
 	git = {
 		enable = true,
-		ignore = true,
+		ignore = false,
 		show_on_dirs = true,
 		show_on_open_dirs = true,
 		timeout = 400,

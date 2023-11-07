@@ -6,7 +6,7 @@ Plug 'nvim-lua/plenary.nvim'
 " File Navigation
 Plug 'https://github.com/kyazdani42/nvim-web-devicons'
 Plug 'https://github.com/kyazdani42/nvim-tree.lua'
-Plug 'https://github.com/nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
+Plug 'https://github.com/nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 Plug 'ThePrimeagen/harpoon'
 
 " Bar
@@ -20,6 +20,8 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 " Java LSP
 Plug 'mfussenegger/nvim-jdtls'
+" TSserver bullshit
+Plug 'https://github.com/jose-elias-alvarez/typescript.nvim'
 
 " Syntax Highlighting
 Plug 'https://github.com/nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -106,6 +108,7 @@ nnoremap <C-H> <C-W>h
 nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
+"nnoremap : :<C-f>i
 nnoremap <C-left> <C-W>h
 nnoremap <C-down> <C-W>j
 nnoremap <C-up> <C-W>k
