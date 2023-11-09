@@ -125,9 +125,11 @@ map <Leader><Space> <Cmd>noh<CR>
 nnoremap <C-f> <cmd>Telescope find_files<cr>
 nnoremap <C-b> <cmd>Telescope buffers<cr>
 nnoremap <M-m> <cmd>:lua require("harpoon.ui").toggle_quick_menu()<CR>
-nnoremap <leader>gf <cmd>Telescope live_grep<cr> " Requires Ripgrep
+" Requires Ripgrep
+nnoremap <leader>gf <cmd>Telescope live_grep<cr> 
 nnoremap <leader>gb <cmd>lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>
-nnoremap <leader>gc <cmd>Telescope current_buffer_fuzzy_find<cr> " Grep the current buffer (gc = grep current)
+" Grep the current buffer (gc = grep current)
+nnoremap <leader>gc <cmd>Telescope current_buffer_fuzzy_find<cr> 
 nnoremap <leader>fd <cmd>Telescope diagnostics<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 " Buffers
