@@ -32,6 +32,7 @@ Plug 'https://github.com/jose-elias-alvarez/null-ls.nvim'
 " Snipets
 Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'}
 Plug 'https://github.com/rafamadriz/friendly-snippets'
+Plug 'https://github.com/honza/vim-snippets'
 Plug 'https://github.com/saadparwaiz1/cmp_luasnip'
 
 " File Paths
