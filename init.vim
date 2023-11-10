@@ -122,7 +122,8 @@ nnoremap <silent>e <Cmd>NvimTreeToggle<CR>
 " Clear Search Highlight
 map <Leader><Space> <Cmd>noh<CR>
 " Telescope
-nnoremap <C-f> <cmd>Telescope find_files<cr>
+nnoremap <C-f> <cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,--glob,!**/.git/*<cr>
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <C-b> <cmd>Telescope buffers<cr>
 nnoremap <M-m> <cmd>:lua require("harpoon.ui").toggle_quick_menu()<CR>
 " Requires Ripgrep
