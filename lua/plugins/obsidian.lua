@@ -25,7 +25,8 @@ require("obsidian").setup({
     -- Where to put new notes created from completion. Valid options are
     --  * "current_dir" - put new notes in same directory as the current buffer.
     --  * "notes_subdir" - put new notes in the default notes subdirectory.
-    new_notes_location = "current_dir"
+    new_notes_location = "current_dir",
+	prepend_note_id = false,
   },
 
   -- Optional, customize how names/IDs for new notes are created.
@@ -36,7 +37,7 @@ require("obsidian").setup({
     local suffix = ""
     if title ~= nil then
       -- If title is given, transform it into valid file name.
-      suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+      suffix = title
     else
       -- If title is nil, just add 4 random uppercase letters to the suffix.
       for _ = 1, 4 do
@@ -47,12 +48,12 @@ require("obsidian").setup({
   end,
 
   -- Optional, set to true if you don't want Obsidian to manage frontmatter.
-  disable_frontmatter = true,
+  disable_frontmatter = false,
 
   -- Optional, alternatively you can customize the frontmatter data.
   note_frontmatter_func = function(note)
     -- This is equivalent to the default frontmatter function.
-    local out = { id = note.id, aliases = note.aliases, tags = note.tags }
+    local out = { id = note.id, aliases = note.aliases, tags = note.tags, date = os.date("%d-%m-%Y %H:%M:%S")}
     -- `note.metadata` contains any manually added fields in the frontmatter.
     -- So here we just make sure those fields are kept in the frontmatter.
     if note.metadata ~= nil and require("obsidian").util.table_length(note.metadata) > 0 then
