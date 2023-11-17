@@ -147,9 +147,7 @@ nnoremap <silent><M-7> <Cmd>:lua require("harpoon.ui").nav_file(7)<CR>
 nnoremap <silent><M-8> <Cmd>:lua require("harpoon.ui").nav_file(8)<CR>
 nnoremap <silent><M-9> <Cmd>:lua require("harpoon.ui").nav_file(9)<CR>
 nnoremap <silent><M-0> <Cmd>:lua require("harpoon.ui").nav_file(10)<CR>
-nnoremap <silent><M-right> <Cmd>bprevious<CR>
-nnoremap <silent><M-left> <Cmd>bnext<CR>
-nnoremap <silent><M-c> <Cmd>bd<CR>
+nnoremap <silent><M-c> <Cmd>:bd<CR>
 map <C-C> <ESC> 
 " Save as sudo
 ca w!! SudaWrite
@@ -179,6 +177,9 @@ let g:vimwiki_list = [{'path': '~/Documents/notes/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 let g:vimwiki_global_ext = 0
 let g:vimwiki_filetypes = ['markdown']
+
+nmap <Leader>wax <Plug>VimwikiTableMoveColumnRight
+nmap <Leader>waz <Plug>VimwikiTableMoveColumnLeft
 
 " Lua
 lua << EOF
@@ -212,7 +213,8 @@ vim.keymap.set('n', '<leader>d', funcs.toggleDiagnosticMode)
 vim.keymap.set('n', '<leader>D', funcs.toggleDiagnosticState)
 vim.keymap.set('n', '<leader>t', funcs.toggleTransparency)
 vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = funcs.open_nvim_tree })
-
+vim.keymap.set('n', '<M-right>', funcs.mruBufferNext)
+vim.keymap.set('n', '<M-left>', funcs.mruBufferPrev)
 
 EOF
 

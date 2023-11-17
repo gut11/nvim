@@ -1,5 +1,6 @@
 local util = {}
 local mruBuffersTable = {}
+local mruBuffersTableLength = 0
 local currentBufferIndex = 1
 local bufferChangedWithoutMru = false
 DiagnosticMode = 1;
@@ -30,7 +31,7 @@ function util.toggleDiagnosticState()
 end
 
 function util.toggleTransparency()
-	local colorscheme = nvim.nvim_exec2("colorscheme", {output = true}).output
+	local colorscheme = nvim.nvim_exec2("colorscheme", { output = true }).output
 	if not TransparencyState then
 		vim.cmd("hi Normal guibg=none ctermbg=none")
 		vim.cmd("hi LineNr guibg=none ctermbg=none")
@@ -65,6 +66,9 @@ end
 local function generateMruTable()
 	local mruBuffers = nvim.nvim_exec2("ls t", { output = true }).output;
 	local newMruBuffersTable = {};
+	if not string.find(mruBuffers, "\n") then
+		mruBuffers = mruBuffers .. "\n"
+	end
 	for bufferInfo in string.gmatch(mruBuffers, "[^\n]+") do
 		local firstNonSpaceIndex = bufferInfo:find("[^ ]+")
 		local bufferInfoWithoutInitialSpaces = bufferInfo:sub(firstNonSpaceIndex, bufferInfo:len())
@@ -83,44 +87,56 @@ end
 vim.api.nvim_command('autocmd BufEnter * lua On_buffer_changed()')
 
 
+local function changeBuffer(bufferNumber)
+	nvim.nvim_exec2("b " .. bufferNumber, {})
+end
+
 function util.mruBufferPrev()
 	if bufferChangedWithoutMru then
 		mruBuffersTable = generateMruTable()
-	end
-	local currentBufferNumber = mruBuffersTable[currentBufferIndex]
-	if bufferChangedWithoutMru then
-		mruBuffersTable = generateMruTable()
+		mruBuffersTableLength = #mruBuffersTable
+		if mruBuffersTableLength <= 1 then
+			return
+		end
+		local bufferToGoNumber = mruBuffersTable[2]
+		changeBuffer(bufferToGoNumber)
 		currentBufferIndex = 2
 	else
-		if currentBufferIndex == #mruBuffersTable then --if currentBufferIndex is the last one(the last buffer in the table)
-			currentBufferIndex = 1               --set the currentBufferIndex to be the most recent(go back to the first buffer)
+		local bufferToGoIndex
+		if currentBufferIndex == #mruBuffersTable then
+			bufferToGoIndex = 1
 		else
-			currentBufferIndex = currentBufferIndex + 1
+			bufferToGoIndex = currentBufferIndex + 1
 		end
+		local bufferToGoToNumber = mruBuffersTable[bufferToGoIndex]
+		changeBuffer(bufferToGoToNumber)
+		currentBufferIndex = bufferToGoIndex;
 	end
-	currentBufferNumber = mruBuffersTable[currentBufferIndex]
-	nvim.nvim_exec2("b " .. currentBufferNumber, {})
 	bufferChangedWithoutMru = false
 end
 
 function util.mruBufferNext()
 	if bufferChangedWithoutMru then
 		mruBuffersTable = generateMruTable()
-	end
-	local currentBufferNumber = mruBuffersTable[currentBufferIndex]
-	if bufferChangedWithoutMru then
-		mruBuffersTable = generateMruTable()
-		currentBufferIndex = #mruBuffersTable
-	else
-		if currentBufferIndex == 1 then --if currentBufferIndex is the last one(the last buffer in the table)
-			currentBufferIndex = #
-				mruBuffersTable   --set the currentBufferIndex to be the most recent(go back to the first buffer)
-		else
-			currentBufferIndex = currentBufferIndex - 1
+		mruBuffersTableLength = #mruBuffersTable
+		if mruBuffersTableLength <= 1 then
+			return
 		end
+		local bufferToGoNumber = mruBuffersTable[mruBuffersTableLength]
+		changeBuffer(bufferToGoNumber)
+		currentBufferIndex = mruBuffersTableLength
+	else
+		local bufferToGoIndex
+		if currentBufferIndex == 1 then
+			bufferToGoIndex =
+				mruBuffersTableLength
+		else
+			bufferToGoIndex = currentBufferIndex - 1
+		end
+		local bufferToGoNumber = mruBuffersTable[bufferToGoIndex]
+		changeBuffer(bufferToGoNumber)
+		currentBufferIndex = bufferToGoIndex
 	end
-	currentBufferNumber = mruBuffersTable[currentBufferIndex]
-	nvim.nvim_exec2("b " .. currentBufferNumber, {})
 	bufferChangedWithoutMru = false
 end
 
