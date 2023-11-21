@@ -135,8 +135,8 @@ nnoremap <leader>fd <cmd>Telescope diagnostics<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 " Buffers
 nnoremap <silent><leader>m <cmd>:lua require('harpoon.mark').add_file()<CR>
-nnoremap <silent><M-l> <Cmd>:lua require("harpoon.ui").nav_next()<CR>
-nnoremap <silent><M-h> <Cmd>:lua require("harpoon.ui").nav_prev()<CR>
+nnoremap <silent><M-right> <Cmd>:lua require("harpoon.ui").nav_next()<CR>
+nnoremap <silent><M-left> <Cmd>:lua require("harpoon.ui").nav_prev()<CR>
 nnoremap <silent><M-1> <Cmd>:lua require("harpoon.ui").nav_file(1)<CR>
 nnoremap <silent><M-2> <Cmd>:lua require("harpoon.ui").nav_file(2)<CR>
 nnoremap <silent><M-3> <Cmd>:lua require("harpoon.ui").nav_file(3)<CR>
@@ -213,8 +213,8 @@ vim.keymap.set('n', '<leader>d', funcs.toggleDiagnosticMode)
 vim.keymap.set('n', '<leader>D', funcs.toggleDiagnosticState)
 vim.keymap.set('n', '<leader>t', funcs.toggleTransparency)
 vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = funcs.open_nvim_tree })
-vim.keymap.set('n', '<M-right>', funcs.mruBufferNext)
-vim.keymap.set('n', '<M-left>', funcs.mruBufferPrev)
+vim.keymap.set('n', '<M-l>', funcs.mruBufferNext)
+vim.keymap.set('n', '<M-h>', funcs.mruBufferPrev)
 
 EOF
 
