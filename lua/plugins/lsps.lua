@@ -37,6 +37,7 @@ lsps.linters_formatters = {
 	"flake8",
 	"php-cs-fixer",
 	"mdformat",
+	"beautysh",
 	"prettier"
 }
 
