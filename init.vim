@@ -95,8 +95,6 @@ au colorscheme * hi LineNr guifg=#707187
 au colorscheme * hi CursorLine guibg=NONE
 au colorscheme * hi CursorLineNr guifg=bold
 
-colorscheme catppuccin-frappe
-
 " Formats
 map <silent><leader>f <Cmd>lua vim.lsp.buf.format()<CR>
 " Save
@@ -203,6 +201,7 @@ require("plugins.telescope")
 require("plugins.obsidian")
 require('telescope').load_extension('vw')
 require("plugins.comment")
+require("themes.catppuccin")
 
 
 
