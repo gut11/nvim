@@ -14,7 +14,7 @@ end
 lsps.list = {
 	"clangd",
 	"rust_analyzer",
-	"pyright",
+	"pylsp",
 	"tsserver",
 	"quick_lint_js",
 	"bashls",
@@ -35,6 +35,7 @@ lsps.list = {
 lsps.linters_formatters = {
 	"black",
 	"flake8",
+	"ruff",
 	"php-cs-fixer",
 	"mdformat",
 	"beautysh",
@@ -54,6 +55,21 @@ function lsps.configs(lspConfig, lsp, capabilities, on_attach)
 				Lua = {
 					diagnostics = {
 						globals = { 'vim' }
+					}
+				}
+			}
+		}
+	elseif lsp == "pylsp" then
+		lspConfig.pylsp.setup {
+			settings = {
+				pylsp = {
+					plugins = {
+						ruff = {enabled = true,},
+						black = {enabled = true,},
+						pycodestyle = {
+							ignore = { 'W391' },
+							maxLineLength = 100
+						}
 					}
 				}
 			}
