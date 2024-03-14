@@ -61,11 +61,18 @@ function lsps.configs(lspConfig, lsp, capabilities, on_attach)
 		}
 	elseif lsp == "pylsp" then
 		lspConfig.pylsp.setup {
+			on_attach = on_attach,
+			capabilities = capabilities,
 			settings = {
 				pylsp = {
 					plugins = {
-						ruff = {enabled = true,},
-						black = {enabled = true,},
+						yapf = { enabled = false, },
+						rope_autoimport = { enabled = true },
+						ruff = { enabled = true, },
+						isort = { enabled = true, },
+						rope = { enabled = true, },
+						memestra = { enabled = true, },
+						mypy = { enabled = true, },
 						pycodestyle = {
 							ignore = { 'W391' },
 							maxLineLength = 100

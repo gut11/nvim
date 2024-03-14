@@ -106,7 +106,7 @@ pylsp:on("install:success", function()
 		"install",
 		"-U",
 		"pylsp-rope",
-		"python-lsp-black",
+		"jedi",
 		"python-lsp-isort",
 		"python-lsp-ruff",
 		"pyls-memestra",
