@@ -110,7 +110,6 @@ pylsp:on("install:success", function()
 		"python-lsp-isort",
 		"python-lsp-ruff",
 		"pyls-memestra",
-		"pylsp-mypy",
 	}
 
 	require("plenary.job")

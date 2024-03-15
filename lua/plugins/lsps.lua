@@ -72,7 +72,6 @@ function lsps.configs(lspConfig, lsp, capabilities, on_attach)
 						isort = { enabled = true, },
 						rope = { enabled = true, },
 						memestra = { enabled = true, },
-						mypy = { enabled = true, },
 						pycodestyle = {
 							ignore = { 'W391' },
 							maxLineLength = 100
