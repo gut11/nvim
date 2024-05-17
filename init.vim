@@ -1,6 +1,7 @@
 call plug#begin()
 
 " Lua Nvim library
+Plug 'https://github.com/vhyrro/luarocks.nvim', {'do': 'nvim -l build.lua'}
 Plug 'nvim-lua/plenary.nvim'
 
 " File Navigation
@@ -60,10 +61,10 @@ Plug 'https://github.com/lambdalisue/suda.vim'
 Plug 'folke/neodev.nvim'
 
 " Notes
-Plug 'vimwiki/vimwiki'
-Plug 'https://github.com/ElPiloto/telescope-vimwiki.nvim'
-Plug 'https://github.com/epwalsh/obsidian.nvim'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+Plug 'https://github.com/nvim-neorg/neorg', {'tag': '*','do': { -> Build_neorg()}}
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
+Plug 'lervag/vimtex'
+
 
 call plug#end()
 
@@ -171,7 +172,7 @@ set nocompatible
 filetype plugin on
 syntax on
 
-let g:vimwiki_list = [{'path': '~/Documents/notes/',
+let g:vimwiki_list = [{'path': '/home/gut11/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 let g:vimwiki_global_ext = 0
 let g:vimwiki_filetypes = ['markdown']
@@ -179,14 +180,21 @@ let g:vimwiki_filetypes = ['markdown']
 nmap <Leader>wax <Plug>VimwikiTableMoveColumnRight
 nmap <Leader>waz <Plug>VimwikiTableMoveColumnLeft
 
+" Markdown preview browser (empty string = default browser)
+let g:mkdp_browser = 'qutebrowser'
+let g:mkdp_theme = 'dark'
+
+" vimtex
+source ~/.config/nvim/plugins/vimtex.vim
+
+function Build_neorg()
+	lua require("plugins.luarocks")
+	source ~/.local/share/nvim/plugged/neorg/build.lua
+endfunction
+
 " Lua
 lua << EOF
-
---vim.g.vimwiki_filetypes = { "markdown" }
-vim.g.loaded = 1 
-vim.g.loaded_netrwPlugin = 1
-
-
+require("plugins.luarocks")
 require("plugins.luasnip")
 require("plugins.lualine")
 require("plugins.nvim-tree")
@@ -198,14 +206,9 @@ require("plugins.nvim-treesitter")
 require("plugins.null-ls")
 require("plugins.nvim-autopairs")
 require("plugins.telescope")
-require("plugins.obsidian")
-require('telescope').load_extension('vw')
+require("plugins.neorg")
 require("plugins.comment")
 require("themes.catppuccin")
-
-
-
-
 
 funcs = require('myFunctions')
 vim.keymap.set('n', '<leader>d', funcs.toggleDiagnosticMode)
@@ -216,6 +219,3 @@ vim.keymap.set('n', '<M-l>', funcs.mruBufferNext)
 vim.keymap.set('n', '<M-h>', funcs.mruBufferPrev)
 
 EOF
-
-
-

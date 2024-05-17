@@ -29,7 +29,8 @@ lsps.list = {
 	"tailwindcss",
 	"angularls",
 	"omnisharp",
-	"marksman"
+	"marksman",
+	"texlab"
 }
 
 lsps.linters_formatters = {
