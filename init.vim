@@ -62,6 +62,7 @@ Plug 'folke/neodev.nvim'
 
 " Notes
 Plug 'https://github.com/nvim-neorg/neorg', {'tag': '*','do': { -> Build_neorg()}}
+Plug 'https://github.com/pysan3/neorg-templates'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
 Plug 'lervag/vimtex'
 

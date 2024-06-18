@@ -4,15 +4,30 @@ require("neorg").setup({
 		["core.export"] = {},
 		["core.esupports.metagen"] = {
 			config = {
-				type = "auto",
+				type = "empty",
 			}
 		},
 		["core.journal"] = {
 			config = {
-				strategy = "flat"
+				strategy = "nested",
 			}
 		},
-		["core.concealer"] = {},
+		["external.templates"] = {
+			config = {
+			templates_dir = "~/Documents/notes/templates",
+			-- default_subcommand = "add", -- or "fload", "load"
+			-- keywords = { -- Add your own keywords.
+			--   EXAMPLE_KEYWORD = function ()
+			--     return require("luasnip").insert_node(1, "default text blah blah")
+			--   end,
+			-- },
+			-- snippets_overwrite = {},
+			}
+		},
+		["core.concealer"] = {
+			config = {
+			}
+		},
 		["core.summary"] = {
 			config = {
 				strategy = "default",
