@@ -30,6 +30,7 @@ lsps.list = {
 	"angularls",
 	"omnisharp",
 	"marksman",
+	"gopls",
 	"texlab"
 }
 
