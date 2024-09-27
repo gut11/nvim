@@ -31,6 +31,7 @@ lsps.list = {
 	"omnisharp",
 	"marksman",
 	"gopls",
+	"asm_lsp",
 	"texlab"
 }
 
@@ -41,7 +42,8 @@ lsps.linters_formatters = {
 	"php-cs-fixer",
 	"mdformat",
 	"beautysh",
-	"prettier"
+	"prettier",
+	"sql-formatter"
 }
 
 lsps.all = concatenate_tables(lsps.list, lsps.linters_formatters)
@@ -49,7 +51,16 @@ lsps.all = concatenate_tables(lsps.list, lsps.linters_formatters)
 local pid = vim.fn.getpid()
 
 function lsps.configs(lspConfig, lsp, capabilities, on_attach)
-	if lsp == "lua_ls" then
+	if lsp == "asm_lsp" then
+		lspConfig.asm_lsp.setup {
+			settings = {
+				command = "asm-lsp",
+				filetypes = {
+					"asm", "s", "S"
+				}
+			}
+		}
+	elseif lsp == "lua_ls" then
 		lspConfig.lua_ls.setup {
 			on_attach = on_attach,
 			capabilities = capabilities,
@@ -61,27 +72,27 @@ function lsps.configs(lspConfig, lsp, capabilities, on_attach)
 				}
 			}
 		}
-	-- elseif lsp == "pylsp" then
-	-- 	lspConfig.pylsp.setup {
-	-- 		on_attach = on_attach,
-	-- 		capabilities = capabilities,
-	-- 		settings = {
-	-- 			pylsp = {
-	-- 				plugins = {
-	-- 					yapf = { enabled = false, },
-	-- 					rope_autoimport = { enabled = true },
-	-- 					ruff = { enabled = true, },
-	-- 					isort = { enabled = true, },
-	-- 					rope = { enabled = true, },
-	-- 					memestra = { enabled = true, },
-	-- 					pycodestyle = {
-	-- 						ignore = { 'W391' },
-	-- 						maxLineLength = 100
-	-- 					}
-	-- 				}
-	-- 			}
-	-- 		}
-	-- 	}
+		-- elseif lsp == "pylsp" then
+		-- 	lspConfig.pylsp.setup {
+		-- 		on_attach = on_attach,
+		-- 		capabilities = capabilities,
+		-- 		settings = {
+		-- 			pylsp = {
+		-- 				plugins = {
+		-- 					yapf = { enabled = false, },
+		-- 					rope_autoimport = { enabled = true },
+		-- 					ruff = { enabled = true, },
+		-- 					isort = { enabled = true, },
+		-- 					rope = { enabled = true, },
+		-- 					memestra = { enabled = true, },
+		-- 					pycodestyle = {
+		-- 						ignore = { 'W391' },
+		-- 						maxLineLength = 100
+		-- 					}
+		-- 				}
+		-- 			}
+		-- 		}
+		-- 	}
 	elseif lsp == "emmet_ls" then
 		lspConfig.emmet_ls.setup {
 			on_attach = on_attach,

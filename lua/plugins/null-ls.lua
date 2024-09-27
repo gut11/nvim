@@ -6,6 +6,7 @@ null_ls.setup({
 		}),
 		null_ls.builtins.formatting.phpcsfixer,
 		null_ls.builtins.formatting.prettier,
+		null_ls.builtins.formatting.sql_formatter,
 		null_ls.builtins.formatting.beautysh,
 		require("typescript.extensions.null-ls.code-actions"),
 		null_ls.builtins.formatting.mdformat.with({

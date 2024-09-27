@@ -33,6 +33,8 @@ Plug 'https://github.com/hrsh7th/cmp-path'
 Plug 'https://github.com/Mofiqul/dracula.nvim'  
 Plug 'https://github.com/folke/tokyonight.nvim'
 Plug 'https://github.com/catppuccin/nvim'
+Plug 'bluz71/vim-moonfly-colors', { 'as': 'moonfly' }
+Plug 'https://github.com/thimc/gruber-darker.nvim'
 Plug 'https://github.com/Mofiqul/vscode.nvim'
 " Tmux
 Plug 'https://github.com/christoomey/vim-tmux-navigator'
@@ -51,6 +53,9 @@ call plug#end()
 " Neovim Configs
 set tabstop=4
 set shiftwidth=4
+autocmd FileType cpp setlocal shiftwidth=2 softtabstop=2 expandtab
+
+autocmd BufNewFile,BufRead *.asm set filetype=nasm
 set mouse=a
 set scrolloff=6 " Keep 6 lines below and above the cursor
 " Long lines
