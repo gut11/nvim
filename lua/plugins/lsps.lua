@@ -31,8 +31,9 @@ lsps.list = {
 	"omnisharp",
 	"marksman",
 	"gopls",
-	"asm_lsp",
-	"texlab"
+	"texlab",
+	"htmx",
+	"templ"
 }
 
 lsps.linters_formatters = {
@@ -48,22 +49,12 @@ lsps.linters_formatters = {
 
 lsps.all = concatenate_tables(lsps.list, lsps.linters_formatters)
 
-local pid = vim.fn.getpid()
+vim.filetype.add({ extension = { templ = "templ" } })
 
-function lsps.configs(lspConfig, lsp, capabilities, on_attach)
-	if lsp == "asm_lsp" then
-		lspConfig.asm_lsp.setup {
-			settings = {
-				command = "asm-lsp",
-				filetypes = {
-					"asm", "s", "S"
-				}
-			}
-		}
-	elseif lsp == "lua_ls" then
+function lsps.configs(lspConfig, lsp,  on_attach)
+	if lsp == "lua_ls" then
 		lspConfig.lua_ls.setup {
 			on_attach = on_attach,
-			capabilities = capabilities,
 			settings = {
 				Lua = {
 					diagnostics = {
@@ -72,32 +63,36 @@ function lsps.configs(lspConfig, lsp, capabilities, on_attach)
 				}
 			}
 		}
-		-- elseif lsp == "pylsp" then
-		-- 	lspConfig.pylsp.setup {
-		-- 		on_attach = on_attach,
-		-- 		capabilities = capabilities,
-		-- 		settings = {
-		-- 			pylsp = {
-		-- 				plugins = {
-		-- 					yapf = { enabled = false, },
-		-- 					rope_autoimport = { enabled = true },
-		-- 					ruff = { enabled = true, },
-		-- 					isort = { enabled = true, },
-		-- 					rope = { enabled = true, },
-		-- 					memestra = { enabled = true, },
-		-- 					pycodestyle = {
-		-- 						ignore = { 'W391' },
-		-- 						maxLineLength = 100
-		-- 					}
-		-- 				}
-		-- 			}
-		-- 		}
-		-- 	}
+	elseif lsp == "htmx" then
+		lspConfig.htmx.setup({
+			on_attach = on_attach,
+			filetypes = { "html", "templ" },
+		})
+	elseif lsp == "html" then
+		lspConfig.html.setup({
+			on_attach = function(client, bufnr)
+				if vim.bo.filetype == "templ" then
+					client.server_capabilities.documentFormattingProvider = false
+				end
+				on_attach(client, bufnr)
+			end,
+		})
+	elseif lsp == "tailwindcss" then
+		lspConfig.tailwindcss.setup({
+			on_attach = on_attach,
+			filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+			settings = {
+				tailwindCSS = {
+					includeLanguages = {
+						templ = "html",
+					},
+				},
+			},
+		})
 	elseif lsp == "emmet_ls" then
 		lspConfig.emmet_ls.setup {
 			on_attach = on_attach,
-			capabilities = capabilities,
-			filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less' },
+			filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less', "templ" },
 			init_options = {
 				html = {
 					options = {
@@ -110,7 +105,6 @@ function lsps.configs(lspConfig, lsp, capabilities, on_attach)
 	elseif lsp == "tsserver" then
 		lspConfig.tsserver.setup {
 			on_attach = on_attach,
-			capabilities = capabilities,
 			settings = {
 				javascript = {
 					format = {
@@ -188,7 +182,6 @@ function lsps.configs(lspConfig, lsp, capabilities, on_attach)
 			analyze_open_documents_only = false,
 			root_dir = lspConfig.util.root_pattern(".sln", ".csproj", ".git"),
 			on_attach = on_attach,
-			capabilities = capabilities
 		}
 	else
 		return false

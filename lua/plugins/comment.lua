@@ -41,3 +41,5 @@ require('Comment').setup({
     ---Function to call after (un)comment
     post_hook = nil,
 })
+
+require('Comment.ft').set('asm', ';%s')

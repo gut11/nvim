@@ -11,15 +11,7 @@ Plug 'https://github.com/nvim-lualine/lualine.nvim'
 " LSP AutoComplete 
 Plug  'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
-Plug 'neovim/nvim-lspconfig'  
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-nvim-lsp'
-" Java LSP
-Plug 'mfussenegger/nvim-jdtls'
-" TSserver bullshit
-Plug 'https://github.com/jose-elias-alvarez/typescript.nvim'
-" Syntax Highlighting
-Plug 'https://github.com/nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'neovim/nvim-lspconfig'
 " Formating
 Plug 'https://github.com/jose-elias-alvarez/null-ls.nvim'
 " Snipets
@@ -44,20 +36,15 @@ Plug 'windwp/nvim-autopairs'
 Plug 'numToStr/Comment.nvim'
 " Sudo inside nvim
 Plug 'https://github.com/lambdalisue/suda.vim'
-" Nvim api
-Plug 'folke/neodev.nvim'
-" Notes
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
-Plug 'lervag/vimtex'
+
 call plug#end()
 " Neovim Configs
 set tabstop=4
 set shiftwidth=4
 autocmd FileType cpp setlocal shiftwidth=2 softtabstop=2 expandtab
-
 autocmd BufNewFile,BufRead *.asm set filetype=nasm
 set mouse=a
-set scrolloff=6 " Keep 6 lines below and above the cursor
+set scrolloff=5 " Keep 5 lines below and above the cursor
 " Long lines
 nnoremap D dg$
 nnoremap Y yg$
@@ -73,9 +60,6 @@ set cursorline
 " Use xclip(or other tool depending on the system) for clipboard
 set clipboard+=unnamedplus
 " Change line numbers color
-au colorscheme * hi LineNr guifg=#707187
-au colorscheme * hi CursorLine guibg=NONE
-au colorscheme * hi CursorLineNr guifg=bold
 " Formats
 map <silent><leader>f <Cmd>lua vim.lsp.buf.format()<CR>
 " Save
@@ -94,8 +78,8 @@ nnoremap <silent>e <Cmd>NvimTreeToggle<CR>
 " Clear Search Highlight
 map <Leader><Space> <Cmd>noh<CR>
 " Telescope
-nnoremap <C-f> <cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,--glob,!**/.git/*<cr>
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>ff <cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,--glob,!**/.git/*<cr>
+nnoremap <C-f> <cmd>Telescope find_files<cr>
 nnoremap <C-b> <cmd>Telescope buffers<cr>
 nnoremap <M-m> <cmd>:lua require("harpoon.ui").toggle_quick_menu()<CR>
 " Requires Ripgrep
@@ -125,40 +109,30 @@ ca w!! SudaWrite
 " Fix delay on ESC
 set timeoutlen=1000
 set ttimeoutlen=50
- "For vim-wiki
-set nocompatible
-filetype plugin on
-syntax on
-let g:vimwiki_list = [{'path': '/home/gut11/',
-                      \ 'syntax': 'markdown', 'ext': '.md'}]
-let g:vimwiki_global_ext = 0
-let g:vimwiki_filetypes = ['markdown']
-nmap <Leader>wax <Plug>VimwikiTableMoveColumnRight
-nmap <Leader>waz <Plug>VimwikiTableMoveColumnLeft
-" Markdown preview browser (empty string = default browser)
-let g:mkdp_browser = 'qutebrowser'
-let g:mkdp_theme = 'dark'
-" vimtex
-source ~/.config/nvim/plugins/vimtex.vim
+
+
+function BigFileSetup()
+	set noswapfile
+	set foldmethod=manual
+endfunction
+
+augroup BigFileDisable
+    autocmd!
+    autocmd VimEnter,BufReadPre,FileReadPre * if getfsize(expand("%")) > 512 * 1024 | exec BigFileSetup() | endif
+augroup END
+
 " Lua
 lua << EOF
 require("plugins.luasnip")
 require("plugins.lualine")
 require("plugins.nvim-tree")
 require("plugins.mason")
-require("plugins.neodev")
 require("plugins.lspconfig")
-require("plugins.nvim-cmp")
-require("plugins.nvim-treesitter")
 require("plugins.null-ls")
 require("plugins.nvim-autopairs")
 require("plugins.telescope")
 require("plugins.comment")
-require("themes.catppuccin")
 funcs = require('myFunctions')
-vim.keymap.set('n', '<leader>d', funcs.toggleDiagnosticMode)
-vim.keymap.set('n', '<leader>D', funcs.toggleDiagnosticState)
-vim.keymap.set('n', '<leader>t', funcs.toggleTransparency)
 vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = funcs.open_nvim_tree })
 vim.keymap.set('n', '<M-l>', funcs.mruBufferNext)
 vim.keymap.set('n', '<M-h>', funcs.mruBufferPrev)
