@@ -3,7 +3,8 @@ call plug#begin()
 Plug 'nvim-lua/plenary.nvim'
 " File Navigation
 Plug 'https://github.com/kyazdani42/nvim-web-devicons'
-Plug 'https://github.com/kyazdani42/nvim-tree.lua'
+Plug 'stevearc/oil.nvim'
+" Plug 'https://github.com/kyazdani42/nvim-tree.lua'
 Plug 'https://github.com/nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 Plug 'ThePrimeagen/harpoon'
 " Bar
@@ -18,9 +19,6 @@ Plug 'https://github.com/jose-elias-alvarez/null-ls.nvim'
 Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'}
 Plug 'https://github.com/rafamadriz/friendly-snippets'
 Plug 'https://github.com/honza/vim-snippets'
-Plug 'https://github.com/saadparwaiz1/cmp_luasnip'
-" File Paths
-Plug 'https://github.com/hrsh7th/cmp-path'
 " Theme
 Plug 'https://github.com/Mofiqul/dracula.nvim'  
 Plug 'https://github.com/folke/tokyonight.nvim'
@@ -36,9 +34,10 @@ Plug 'windwp/nvim-autopairs'
 Plug 'numToStr/Comment.nvim'
 " Sudo inside nvim
 Plug 'https://github.com/lambdalisue/suda.vim'
-
 call plug#end()
+
 " Neovim Configs
+colorscheme moonfly
 set tabstop=4
 set shiftwidth=4
 autocmd FileType cpp setlocal shiftwidth=2 softtabstop=2 expandtab
@@ -56,7 +55,7 @@ noremap <expr> k v:count ? 'k' : 'gk'
 " Turn hybrid line numbers on
 set number relativenumber
 set nu rnu
-set cursorline
+" set cursorline
 " Use xclip(or other tool depending on the system) for clipboard
 set clipboard+=unnamedplus
 " Change line numbers color
@@ -123,9 +122,13 @@ augroup END
 
 " Lua
 lua << EOF
+if vim.loader then
+	vim.loader.enable()
+	end
 require("plugins.luasnip")
 require("plugins.lualine")
-require("plugins.nvim-tree")
+-- require("plugins.nvim-tree")
+require("oil").setup()
 require("plugins.mason")
 require("plugins.lspconfig")
 require("plugins.null-ls")
