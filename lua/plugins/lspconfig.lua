@@ -32,17 +32,20 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
 	vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
 	vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+	vim.keymap.set('n', '<space>f', vim.lsp.buf.format, bufopts)
 end
 
--- local capabilities = require("lspconfig").default_capabilities()
+-- Add additional capabilities supported by nvim-cmp
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 for _, lsp in ipairs(lsps) do
-	if lspsConfigs(lspconfig, lsp, on_attach) then
+	if lspsConfigs(lspconfig, lsp, capabilities, on_attach) then
 	else
 		lspconfig[lsp].setup {
 			on_attach = on_attach,
+			capabilities = capabilities,
 		}
 	end
 end

@@ -4,7 +4,6 @@ Plug 'nvim-lua/plenary.nvim'
 " File Navigation
 Plug 'https://github.com/kyazdani42/nvim-web-devicons'
 Plug 'stevearc/oil.nvim'
-" Plug 'https://github.com/kyazdani42/nvim-tree.lua'
 Plug 'https://github.com/nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 Plug 'ThePrimeagen/harpoon'
 " Bar
@@ -12,13 +11,18 @@ Plug 'https://github.com/nvim-lualine/lualine.nvim'
 " LSP AutoComplete 
 Plug  'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
-Plug 'neovim/nvim-lspconfig'
+Plug 'neovim/nvim-lspconfig'  
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
 " Formating
 Plug 'https://github.com/jose-elias-alvarez/null-ls.nvim'
 " Snipets
 Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'}
 Plug 'https://github.com/rafamadriz/friendly-snippets'
 Plug 'https://github.com/honza/vim-snippets'
+Plug 'https://github.com/saadparwaiz1/cmp_luasnip'
+" File Paths
+Plug 'https://github.com/hrsh7th/cmp-path'
 " Theme
 Plug 'https://github.com/Mofiqul/dracula.nvim'  
 Plug 'https://github.com/folke/tokyonight.nvim'
@@ -32,12 +36,15 @@ Plug 'https://github.com/christoomey/vim-tmux-navigator'
 Plug 'windwp/nvim-autopairs'
 " Comments 
 Plug 'numToStr/Comment.nvim'
+" Nvim api
+Plug 'folke/neodev.nvim'
 " Sudo inside nvim
 Plug 'https://github.com/lambdalisue/suda.vim'
 call plug#end()
 
 " Neovim Configs
 colorscheme moonfly
+cd %:p:h
 set tabstop=4
 set shiftwidth=4
 autocmd FileType cpp setlocal shiftwidth=2 softtabstop=2 expandtab
@@ -127,16 +134,19 @@ if vim.loader then
 	end
 require("plugins.luasnip")
 require("plugins.lualine")
--- require("plugins.nvim-tree")
-require("oil").setup()
+require("plugins.oil")
 require("plugins.mason")
+require("plugins.neodev")
 require("plugins.lspconfig")
+require("plugins.nvim-cmp")
 require("plugins.null-ls")
 require("plugins.nvim-autopairs")
 require("plugins.telescope")
 require("plugins.comment")
 funcs = require('myFunctions')
-vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = funcs.open_nvim_tree })
+vim.keymap.set('n', '<leader>d', funcs.toggleDiagnosticMode)
+vim.keymap.set('n', '<leader>D', funcs.toggleDiagnosticState)
 vim.keymap.set('n', '<M-l>', funcs.mruBufferNext)
 vim.keymap.set('n', '<M-h>', funcs.mruBufferPrev)
+vim.diagnostic.disable()
 EOF
