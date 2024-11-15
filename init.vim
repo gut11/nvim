@@ -21,8 +21,6 @@ Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'}
 Plug 'https://github.com/rafamadriz/friendly-snippets'
 Plug 'https://github.com/honza/vim-snippets'
 Plug 'https://github.com/saadparwaiz1/cmp_luasnip'
-" Syntax highlight
-Plug 'https://github.com/nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " File Paths
 Plug 'https://github.com/hrsh7th/cmp-path'
 " Theme
@@ -49,8 +47,10 @@ colorscheme moonfly
 cd %:p:h
 set tabstop=4
 set shiftwidth=4
+" Filetypes
 autocmd FileType cpp setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd BufNewFile,BufRead *.asm set filetype=nasm
+autocmd BufNewFile,BufRead *.templ set filetype=html
 set mouse=a
 set scrolloff=5 " Keep 5 lines below and above the cursor
 " Long lines
@@ -144,7 +144,6 @@ require("plugins.null-ls")
 require("plugins.nvim-autopairs")
 require("plugins.telescope")
 require("plugins.comment")
-require("plugins.nvim-treesitter")
 funcs = require('myFunctions')
 vim.keymap.set('n', '<leader>d', funcs.toggleDiagnosticMode)
 vim.keymap.set('n', '<leader>D', funcs.toggleDiagnosticState)

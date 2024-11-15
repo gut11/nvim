@@ -27,12 +27,17 @@ require('lualine').setup {
 		lualine_c =
 		{
 			function()
-				local filepath = vim.fn.expand('%:p')  -- Get the full file path
-				local filename = vim.fn.expand('%:t')  -- Get the file name
-				local dir = vim.fn.expand('%:h:t')     -- Get the current directory name
-				local parent_dir = vim.fn.expand('%:h:h:t') -- Get the parent directory name
-				return parent_dir .. '/' .. dir .. '/' .. filename -- Combine them
-			end
+				local filepath = vim.fn.expand('%:p')
+				local filename = vim.fn.expand('%:t')
+				local git_dir = vim.fs.find('.git', { upward = true, type = 'directory' })
+				local project_root = git_dir and vim.fs.dirname(git_dir[1]) or nil
+
+				if project_root then
+					return vim.fn.fnamemodify(filepath, ':~:.'):gsub(project_root .. '/', '')
+				else
+					return filepath
+				end
+			end,
 		},
 		lualine_x = { 'encoding', 'filetype', 'filesize', "fileformat", },
 		lualine_y = { 'progress', 'totalLines()' },

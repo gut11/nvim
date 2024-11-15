@@ -17,8 +17,6 @@ require("oil").setup({
 	},
 	-- Window-local options to use for oil buffers
 	win_options = {
-		winbar = "%!v:lua.get_oil_winbar()",
-
 		wrap = false,
 		signcolumn = "no",
 		cursorcolumn = false,
