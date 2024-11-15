@@ -24,9 +24,18 @@ require('lualine').setup {
 	sections = {
 		lualine_a = { 'mode' },
 		lualine_b = { 'branch', 'diff', 'diagnostics' },
-		lualine_c = { "vim.fn.expand('%:h:t') .. '/' .. vim.fn.expand('%:t')" }, --[[ file name and directory file is inside ]]
-		lualine_x = { 'encoding',  'filetype','filesize',"fileformat", },
-		lualine_y = { 'progress', 'totalLines()'},
+		lualine_c =
+		{
+			function()
+				local filepath = vim.fn.expand('%:p')  -- Get the full file path
+				local filename = vim.fn.expand('%:t')  -- Get the file name
+				local dir = vim.fn.expand('%:h:t')     -- Get the current directory name
+				local parent_dir = vim.fn.expand('%:h:h:t') -- Get the parent directory name
+				return parent_dir .. '/' .. dir .. '/' .. filename -- Combine them
+			end
+		},
+		lualine_x = { 'encoding', 'filetype', 'filesize', "fileformat", },
+		lualine_y = { 'progress', 'totalLines()' },
 		lualine_z = { "location" }
 	},
 	inactive_sections = {

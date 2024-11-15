@@ -21,6 +21,8 @@ Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'}
 Plug 'https://github.com/rafamadriz/friendly-snippets'
 Plug 'https://github.com/honza/vim-snippets'
 Plug 'https://github.com/saadparwaiz1/cmp_luasnip'
+" Syntax highlight
+Plug 'https://github.com/nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " File Paths
 Plug 'https://github.com/hrsh7th/cmp-path'
 " Theme
@@ -80,7 +82,7 @@ nnoremap <C-L> <C-W>l
 nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
 "Open nvim tree
-nnoremap <silent>e <Cmd>NvimTreeToggle<CR>
+nnoremap <silent>e <Cmd>Oil<CR>
 " Clear Search Highlight
 map <Leader><Space> <Cmd>noh<CR>
 " Telescope
@@ -127,11 +129,10 @@ augroup BigFileDisable
     autocmd VimEnter,BufReadPre,FileReadPre * if getfsize(expand("%")) > 512 * 1024 | exec BigFileSetup() | endif
 augroup END
 
-" Lua
 lua << EOF
 if vim.loader then
 	vim.loader.enable()
-	end
+end
 require("plugins.luasnip")
 require("plugins.lualine")
 require("plugins.oil")
@@ -143,6 +144,7 @@ require("plugins.null-ls")
 require("plugins.nvim-autopairs")
 require("plugins.telescope")
 require("plugins.comment")
+require("plugins.nvim-treesitter")
 funcs = require('myFunctions')
 vim.keymap.set('n', '<leader>d', funcs.toggleDiagnosticMode)
 vim.keymap.set('n', '<leader>D', funcs.toggleDiagnosticState)

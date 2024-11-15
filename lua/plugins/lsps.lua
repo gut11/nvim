@@ -43,7 +43,8 @@ lsps.linters_formatters = {
 	"mdformat",
 	"beautysh",
 	"prettier",
-	"sql-formatter"
+	"sql-formatter",
+	"latexindent"
 }
 
 lsps.all = concatenate_tables(lsps.list, lsps.linters_formatters)

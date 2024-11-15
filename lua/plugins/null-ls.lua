@@ -8,6 +8,7 @@ null_ls.setup({
 		null_ls.builtins.formatting.prettier,
 		null_ls.builtins.formatting.sql_formatter,
 		null_ls.builtins.formatting.beautysh,
+		null_ls.builtins.formatting.latexindent,
 		null_ls.builtins.formatting.mdformat.with({
 			extra_args = { "-number" },
 		})
