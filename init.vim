@@ -1,3 +1,4 @@
+set nocompatible "Vim poliglot
 call plug#begin()
 " Lua Nvim library
 Plug 'nvim-lua/plenary.nvim'
@@ -9,13 +10,14 @@ Plug 'ThePrimeagen/harpoon'
 " Bar
 Plug 'https://github.com/nvim-lualine/lualine.nvim'
 " LSP AutoComplete 
-Plug  'williamboman/mason.nvim'
+Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
-Plug 'neovim/nvim-lspconfig'  
+Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 " Formating
-Plug 'https://github.com/jose-elias-alvarez/null-ls.nvim'
+Plug 'stevearc/conform.nvim'
+" Plug 'https://github.com/jose-elias-alvarez/null-ls.nvim'
 " Snipets
 Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'}
 Plug 'https://github.com/rafamadriz/friendly-snippets'
@@ -28,8 +30,10 @@ Plug 'https://github.com/Mofiqul/dracula.nvim'
 Plug 'https://github.com/folke/tokyonight.nvim'
 Plug 'https://github.com/catppuccin/nvim'
 Plug 'bluz71/vim-moonfly-colors', { 'as': 'moonfly' }
-Plug 'https://github.com/thimc/gruber-darker.nvim'
 Plug 'https://github.com/Mofiqul/vscode.nvim'
+" Polyglot
+Plug 'joerdav/templ.vim'
+Plug 'sheerun/vim-polyglot'
 " Tmux
 Plug 'https://github.com/christoomey/vim-tmux-navigator'
 " Closers(){}[]
@@ -43,6 +47,7 @@ Plug 'https://github.com/lambdalisue/suda.vim'
 call plug#end()
 
 " Neovim Configs
+let mapleader = " "
 colorscheme moonfly
 cd %:p:h
 set tabstop=4
@@ -50,7 +55,7 @@ set shiftwidth=4
 " Filetypes
 autocmd FileType cpp setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd BufNewFile,BufRead *.asm set filetype=nasm
-autocmd BufNewFile,BufRead *.templ set filetype=html
+" autocmd BufNewFile,BufRead *.templ set filetype=html
 set mouse=a
 set scrolloff=5 " Keep 5 lines below and above the cursor
 " Long lines
@@ -68,8 +73,6 @@ set nu rnu
 " Use xclip(or other tool depending on the system) for clipboard
 set clipboard+=unnamedplus
 " Change line numbers color
-" Formats
-map <silent><leader>f <Cmd>lua vim.lsp.buf.format()<CR>
 " Save
 map <silent><leader>s <Cmd>w<CR>
 map <leader>S :w!!<CR>
@@ -90,7 +93,6 @@ nnoremap <leader>ff <cmd>Telescope find_files find_command=rg,--ignore,--hidden,
 nnoremap <C-f> <cmd>Telescope find_files<cr>
 nnoremap <C-b> <cmd>Telescope buffers<cr>
 nnoremap <M-m> <cmd>:lua require("harpoon.ui").toggle_quick_menu()<CR>
-" Requires Ripgrep
 nnoremap <leader>gf <cmd>Telescope live_grep<cr>
 nnoremap <leader>gb <cmd>lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>
 " Grep the current buffer (gc = grep current)
@@ -118,7 +120,6 @@ ca w!! SudaWrite
 set timeoutlen=1000
 set ttimeoutlen=50
 
-
 function BigFileSetup()
 	set noswapfile
 	set foldmethod=manual
@@ -128,6 +129,9 @@ augroup BigFileDisable
     autocmd!
     autocmd VimEnter,BufReadPre,FileReadPre * if getfsize(expand("%")) > 512 * 1024 | exec BigFileSetup() | endif
 augroup END
+
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
 
 lua << EOF
 if vim.loader then
@@ -140,7 +144,7 @@ require("plugins.mason")
 require("plugins.neodev")
 require("plugins.lspconfig")
 require("plugins.nvim-cmp")
-require("plugins.null-ls")
+conform = require("plugins.conform")
 require("plugins.nvim-autopairs")
 require("plugins.telescope")
 require("plugins.comment")
@@ -149,5 +153,6 @@ vim.keymap.set('n', '<leader>d', funcs.toggleDiagnosticMode)
 vim.keymap.set('n', '<leader>D', funcs.toggleDiagnosticState)
 vim.keymap.set('n', '<M-l>', funcs.mruBufferNext)
 vim.keymap.set('n', '<M-h>', funcs.mruBufferPrev)
+vim.keymap.set('n', '<leader>f', '<Cmd>Format<CR>')
 vim.diagnostic.disable()
 EOF

@@ -73,27 +73,6 @@ function lsps.configs(lspConfig, lsp, capabilities, on_attach)
 				}
 			}
 		}
-		-- elseif lsp == "pylsp" then
-		-- 	lspConfig.pylsp.setup {
-		-- 		on_attach = on_attach,
-		-- 		capabilities = capabilities,
-		-- 		settings = {
-		-- 			pylsp = {
-		-- 				plugins = {
-		-- 					yapf = { enabled = false, },
-		-- 					rope_autoimport = { enabled = true },
-		-- 					ruff = { enabled = true, },
-		-- 					isort = { enabled = true, },
-		-- 					rope = { enabled = true, },
-		-- 					memestra = { enabled = true, },
-		-- 					pycodestyle = {
-		-- 						ignore = { 'W391' },
-		-- 						maxLineLength = 100
-		-- 					}
-		-- 				}
-		-- 			}
-		-- 		}
-		-- 	}
 	elseif lsp == "emmet_ls" then
 		lspConfig.emmet_ls.setup {
 			on_attach = on_attach,

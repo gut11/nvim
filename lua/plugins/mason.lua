@@ -1,9 +1,6 @@
 local path = require('mason-core.path')
 local lsps_linters_formatters = require("plugins.lsps").list
 
-
-
-
 require("mason").setup({
 	-- The directory in which to install packages.
 	install_root_dir = path.concat { vim.fn.stdpath "data", "mason" },
