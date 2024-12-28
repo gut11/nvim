@@ -3,8 +3,8 @@ local mruBuffersTable = {}
 local mruBuffersTableLength = 0
 local currentBufferIndex = 1
 local bufferChangedWithoutMru = false
-DiagnosticMode = 1;
-DiagnosticState = true;
+DiagnosticMode = 0;
+DiagnosticState = false;
 TransparencyState = false;
 
 function util.toggleDiagnosticMode()

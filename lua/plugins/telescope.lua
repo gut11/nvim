@@ -33,7 +33,7 @@ require('telescope').setup {
 		-- builtin picker
 		find_files = {
 			-- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
-			find_command = {"rg", "--no-ignore", "--files", "--hidden", "--glob", "!**/.git/*", "--glob", "!**/node_modules/*", "--glob","!**/.venv/*", "--glob","!**/venv/*"},
+			find_command = { "rg", "--no-ignore", "--files", "--hidden", "--glob", "!**/.git/*", "--glob", "!**/node_modules/*", "--glob", "!**/.venv/*", "--glob", "!**/venv/*", "--glob", "!**/dist/*" },
 			sorter = require('telescope.sorters').get_fuzzy_file(),
 		},
 		buffers = {

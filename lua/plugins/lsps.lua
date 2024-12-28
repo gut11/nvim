@@ -16,13 +16,13 @@ lsps.list = {
 	"rust_analyzer",
 	"pyright",
 	"tsserver",
-	"quick_lint_js",
 	"bashls",
 	"lua_ls",
 	"cssls",
 	"emmet_ls",
 	"cssmodules_ls",
 	"html",
+	"htmx",
 	"jdtls",
 	"jsonls",
 	"intelephense",
@@ -32,6 +32,7 @@ lsps.list = {
 	"marksman",
 	"gopls",
 	"asm_lsp",
+	"templ",
 	"texlab"
 }
 
@@ -48,8 +49,6 @@ lsps.linters_formatters = {
 }
 
 lsps.all = concatenate_tables(lsps.list, lsps.linters_formatters)
-
-local pid = vim.fn.getpid()
 
 function lsps.configs(lspConfig, lsp, capabilities, on_attach)
 	if lsp == "asm_lsp" then
@@ -73,11 +72,15 @@ function lsps.configs(lspConfig, lsp, capabilities, on_attach)
 				}
 			}
 		}
+	elseif lsp == "htmx" then
+		lspConfig.htmx.setup({
+			on_attach = on_attach,
+			filetypes = { "html", "templ" },
+		})
 	elseif lsp == "emmet_ls" then
 		lspConfig.emmet_ls.setup {
 			on_attach = on_attach,
-			capabilities = capabilities,
-			filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less' },
+			filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less', "templ" },
 			init_options = {
 				html = {
 					options = {

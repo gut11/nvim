@@ -17,7 +17,6 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 " Formating
 Plug 'stevearc/conform.nvim'
-" Plug 'https://github.com/jose-elias-alvarez/null-ls.nvim'
 " Snipets
 Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'}
 Plug 'https://github.com/rafamadriz/friendly-snippets'
@@ -96,7 +95,7 @@ nnoremap <M-m> <cmd>:lua require("harpoon.ui").toggle_quick_menu()<CR>
 nnoremap <leader>gf <cmd>Telescope live_grep<cr>
 nnoremap <leader>gb <cmd>lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>
 " Grep the current buffer (gc = grep current)
-nnoremap <leader>gc <cmd>Telescope current_buffer_fuzzy_find<cr> 
+nnoremap <leader>gc <cmd>Telescope current_buffer_fuzzy_find<cr>
 nnoremap <leader>fd <cmd>Telescope diagnostics<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 " Buffers
@@ -133,6 +132,8 @@ augroup END
 let g:go_highlight_function_calls = 1
 let g:go_highlight_operators = 1
 
+command! -range Prettier execute '<line1>,<line2>!prettier --parser babel' | execute 'normal gv ='
+
 lua << EOF
 if vim.loader then
 	vim.loader.enable()
@@ -144,13 +145,14 @@ require("plugins.mason")
 require("plugins.neodev")
 require("plugins.lspconfig")
 require("plugins.nvim-cmp")
-conform = require("plugins.conform")
+require("plugins.conform")
 require("plugins.nvim-autopairs")
 require("plugins.telescope")
 require("plugins.comment")
 funcs = require('myFunctions')
-vim.keymap.set('n', '<leader>d', funcs.toggleDiagnosticMode)
-vim.keymap.set('n', '<leader>D', funcs.toggleDiagnosticState)
+vim.filetype.add({ extension = { templ = "templ" } })
+vim.keymap.set('n', '\\d', funcs.toggleDiagnosticState)
+vim.keymap.set('n', '\\D', funcs.toggleDiagnosticMode)
 vim.keymap.set('n', '<M-l>', funcs.mruBufferNext)
 vim.keymap.set('n', '<M-h>', funcs.mruBufferPrev)
 vim.keymap.set('n', '<leader>f', '<Cmd>Format<CR>')
