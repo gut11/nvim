@@ -15,7 +15,7 @@ lsps.list = {
 	"clangd",
 	"rust_analyzer",
 	"pyright",
-	"tsserver",
+	"ts_ls",
 	"bashls",
 	"lua_ls",
 	"cssls",
@@ -32,6 +32,7 @@ lsps.list = {
 	"marksman",
 	"gopls",
 	"asm_lsp",
+	"quick_lint_js",
 	"templ",
 	"texlab"
 }
@@ -51,6 +52,7 @@ lsps.linters_formatters = {
 lsps.all = concatenate_tables(lsps.list, lsps.linters_formatters)
 
 function lsps.configs(lspConfig, lsp, capabilities, on_attach)
+	local util = lspConfig.util
 	if lsp == "asm_lsp" then
 		lspConfig.asm_lsp.setup {
 			settings = {
@@ -90,89 +92,8 @@ function lsps.configs(lspConfig, lsp, capabilities, on_attach)
 				},
 			}
 		}
-	elseif lsp == "tsserver" then
-		lspConfig.tsserver.setup {
-			on_attach = on_attach,
-			capabilities = capabilities,
-			settings = {
-				javascript = {
-					format = {
-						semicolons = "insert",
-					},
-					inlayHints = {
-						includeInlayEnumMemberValueHints = true,
-						includeInlayFunctionLikeReturnTypeHints = true,
-						includeInlayFunctionParameterTypeHints = true,
-						includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-						includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-						includeInlayPropertyDeclarationTypeHints = true,
-						includeInlayVariableTypeHints = true,
-					},
-				},
-				typescript = {
-					format = {
-						semicolons = "insert",
-					},
-					inlayHints = {
-						includeInlayEnumMemberValueHints = true,
-						includeInlayFunctionLikeReturnTypeHints = true,
-						includeInlayFunctionParameterTypeHints = true,
-						includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-						includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-						includeInlayPropertyDeclarationTypeHints = true,
-						includeInlayVariableTypeHints = true,
-					},
-				},
-			},
-			init_options = {
-				hostInfo = "neovim",
-			}
-		}
 	elseif lsp == "jdtls" then
 		--being handled by nvim-jdtls
-	elseif lsp == "omnisharp" then
-		lspConfig.omnisharp.setup {
-			cmd = { "dotnet", "/home/gut11/.local/share/nvim/mason/packages/omnisharp/libexec/OmniSharp.dll" },
-
-
-			-- Enables support for reading code style, naming convention and analyzer
-			-- settings from .editorconfig.
-			enable_editorconfig_support = true,
-
-			-- If true, MSBuild project system will only load projects for files that
-			-- were opened in the editor. This setting is useful for big C# codebases
-			-- and allows for faster initialization of code navigation features only
-			-- for projects that are relevant to code that is being edited. With this
-			-- setting enabled OmniSharp may load fewer projects and may thus display
-			-- incomplete reference lists for symbols.
-			enable_ms_build_load_projects_on_demand = false,
-
-			-- Enables support for roslyn analyzers, code fixes and rulesets.
-			enable_roslyn_analyzers = false,
-
-			-- Specifies whether 'using' directives should be grouped and sorted during
-			-- document formatting.
-			organize_imports_on_format = false,
-
-			-- Enables support for showing unimported types and unimported extension
-			-- methods in completion lists. When committed, the appropriate using
-			-- directive will be added at the top of the current file. This option can
-			-- have a negative impact on initial completion responsiveness,
-			-- particularly for the first few completion sessions after opening a
-			-- solution.
-			enable_import_completion = true,
-
-			-- Specifies whether to include preview versions of the .NET SDK when
-			-- determining which version to use for project loading.
-			sdk_include_prereleases = true,
-
-			-- Only run analyzers against open files when 'enableRoslynAnalyzers' is
-			-- true
-			analyze_open_documents_only = false,
-			root_dir = lspConfig.util.root_pattern(".sln", ".csproj", ".git"),
-			on_attach = on_attach,
-			capabilities = capabilities
-		}
 	else
 		return false
 	end

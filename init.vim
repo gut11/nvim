@@ -53,6 +53,7 @@ set tabstop=4
 set shiftwidth=4
 " Filetypes
 autocmd FileType cpp setlocal shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType c setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd BufNewFile,BufRead *.asm set filetype=nasm
 " autocmd BufNewFile,BufRead *.templ set filetype=html
 set mouse=a
