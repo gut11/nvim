@@ -47,7 +47,7 @@ call plug#end()
 
 " Neovim Configs
 let mapleader = " "
-colorscheme moonfly
+" colorscheme moonfly
 cd %:p:h
 set tabstop=4
 set shiftwidth=4
@@ -156,6 +156,6 @@ vim.keymap.set('n', '\\d', funcs.toggleDiagnosticState)
 vim.keymap.set('n', '\\D', funcs.toggleDiagnosticMode)
 vim.keymap.set('n', '<M-l>', funcs.mruBufferNext)
 vim.keymap.set('n', '<M-h>', funcs.mruBufferPrev)
-vim.keymap.set('n', '<leader>f', '<Cmd>Format<CR>')
+vim.keymap.set('n', '<leader>j', '<Cmd>Format<CR>')
 vim.diagnostic.disable()
 EOF
